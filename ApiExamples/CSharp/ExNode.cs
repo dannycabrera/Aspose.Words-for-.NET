@@ -6,11 +6,9 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System;
-
 using Aspose.Words;
 using Aspose.Words.Saving;
 using Aspose.Words.Tables;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -52,13 +50,13 @@ namespace ApiExamples
             Node cloneWithoutChildren = para.Clone(false);
             //ExEnd
 
-            Assert.IsTrue(((CompositeNode)cloneWithChildren).HasChildNodes);
-            Assert.IsFalse(((CompositeNode)cloneWithoutChildren).HasChildNodes);
+            Assert.IsTrue(((CompositeNode) cloneWithChildren).HasChildNodes);
+            Assert.IsFalse(((CompositeNode) cloneWithoutChildren).HasChildNodes);
         }
-        
+
         [Test]
-	    public void GetParentNode()
-	    {
+        public void GetParentNode()
+        {
             //ExStart
             //ExFor:Node.ParentNode
             //ExId:AccessParentNode
@@ -92,7 +90,7 @@ namespace ApiExamples
 
             // The new paragraph node does not yet have a parent.
             Console.WriteLine("Paragraph has no parent node: " + (para.ParentNode == null));
-           
+
             // But the paragraph node knows its document.
             Console.WriteLine("Both nodes' documents are the same: " + (para.Document == doc));
 
@@ -120,7 +118,7 @@ namespace ApiExamples
             //ExFor:CompositeNode
             //ExFor:CompositeNode.GetChild
             //ExSummary:Shows how to extract a specific child node from a CompositeNode by using the GetChild method and passing the NodeType and index.
-            Paragraph paragraph = (Paragraph)doc.GetChild(NodeType.Paragraph, 0, true);
+            Paragraph paragraph = (Paragraph) doc.GetChild(NodeType.Paragraph, 0, true);
             //ExEnd
 
             //ExStart
@@ -135,7 +133,7 @@ namespace ApiExamples
                 if (child.NodeType.Equals(NodeType.Run))
                 {
                     // Say we found the node that we want, do something useful.
-                    Run run = (Run)child;
+                    Run run = (Run) child;
                     Console.WriteLine(run.Text);
                 }
             }
@@ -146,7 +144,7 @@ namespace ApiExamples
         public void IndexChildNodes()
         {
             Document doc = new Document();
-            Paragraph paragraph = (Paragraph)doc.GetChild(NodeType.Paragraph, 0, true);
+            Paragraph paragraph = (Paragraph) doc.GetChild(NodeType.Paragraph, 0, true);
 
             //ExStart
             //ExFor:NodeCollection.Count
@@ -162,7 +160,7 @@ namespace ApiExamples
                 if (child.NodeType.Equals(NodeType.Run))
                 {
                     // Say we found the node that we want, do something useful.
-                    Run run = (Run)child;
+                    Run run = (Run) child;
                     Console.WriteLine(run.Text);
                 }
             }
@@ -177,7 +175,7 @@ namespace ApiExamples
         {
             this.RecurseAllNodes();
         }
-        
+
         //ExStart
         //ExFor:Node.NextSibling
         //ExFor:CompositeNode.FirstChild
@@ -209,9 +207,10 @@ namespace ApiExamples
 
                 // Recurse into the node if it is a composite node.
                 if (childNode.IsComposite)
-                    this.TraverseAllNodes((CompositeNode)childNode);
+                    this.TraverseAllNodes((CompositeNode) childNode);
             }
         }
+
         //ExEnd
 
 
@@ -333,7 +332,7 @@ namespace ApiExamples
             // Document is a CompositeNode and LastChild returns the last child node in the Document node.
             // Since the Document can contain only Section nodes, the last child is the last section.
             Node lastSection = doc.LastChild;
-            
+
             // Each node knows its next and previous sibling nodes.
             // Previous sibling of a section is a section before the specified section.
             // If the node is the first child, PreviousSibling will return null.
@@ -376,7 +375,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "MailMerge.MergeImage.doc");
 
             // Let's say we want to check if the Run below is inside a field.
-            Run run = (Run)doc.GetChild(NodeType.Run, 5, true);
+            Run run = (Run) doc.GetChild(NodeType.Run, 5, true);
 
             // Evaluate the XPath expression. The resulting NodeList will contain all nodes found inside a field a field (between FieldStart 
             // and FieldEnd exclusive). There can however be FieldStart and FieldEnd nodes in the list if there are nested fields 
@@ -508,7 +507,9 @@ namespace ApiExamples
             string nodeAsHtml = node.ToString(SaveFormat.Html);
             //ExEnd
 
-            Assert.AreEqual("<p style=\"margin-top:0pt; margin-bottom:0pt; font-size:12pt\"><span style=\"font-family:'Times New Roman'\">Hello World!</span></p>", nodeAsHtml);
+            Assert.AreEqual(
+                "<p style=\"margin-top:0pt; margin-bottom:0pt; font-size:12pt\"><span style=\"font-family:'Times New Roman'\">Hello World!</span></p>",
+                nodeAsHtml);
         }
 
         [Test]
@@ -532,7 +533,9 @@ namespace ApiExamples
             string nodeAsHtml = node.ToString(saveOptions);
             //ExEnd
 
-            Assert.AreEqual("<p style=\"margin-top:0pt; margin-bottom:0pt\"><span style=\"font-family:'Times New Roman'\">Hello World!</span></p>", nodeAsHtml);
+            Assert.AreEqual(
+                "<p style=\"margin-top:0pt; margin-bottom:0pt\"><span style=\"font-family:'Times New Roman'\">Hello World!</span></p>",
+                nodeAsHtml);
         }
 
         [Test]
@@ -547,7 +550,7 @@ namespace ApiExamples
             Paragraph[] paras = doc.FirstSection.Body.Paragraphs.ToArray();
             //ExEnd
 
-            Assert.Greater(paras.Length,  0);
+            Assert.Greater(paras.Length, 0);
         }
 
         [Test]

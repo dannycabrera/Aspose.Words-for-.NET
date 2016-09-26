@@ -7,10 +7,8 @@
 
 using System;
 using System.Drawing;
-
 using Aspose.Words;
 using Aspose.Words.Lists;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -223,7 +221,7 @@ namespace ApiExamples
             level2.Font.Name = "Wingdings";
             level2.Font.Color = Color.Blue;
             level2.Font.Size = 24;
-            level2.NumberFormat = "\xf0af";	// A bullet that looks like some sort of a star.
+            level2.NumberFormat = "\xf0af"; // A bullet that looks like some sort of a star.
             level2.TrailingCharacter = ListTrailingCharacter.Space;
             level2.NumberPosition = 144;
 
@@ -471,7 +469,7 @@ namespace ApiExamples
         {
             this.OutlineHeadingTemplates();
         }
-        
+
         //ExStart
         //ExFor:ListTemplate
         //ExSummary:Creates a sample document that exercises all outline headings list templates.
@@ -497,7 +495,8 @@ namespace ApiExamples
             builder.Document.Save(MyDir + @"\Artifacts\Lists.OutlineHeadingTemplates.doc");
         }
 
-        private static void AddOutlineHeadingParagraphs(DocumentBuilder builder, Aspose.Words.Lists.List list, string title)
+        private static void AddOutlineHeadingParagraphs(DocumentBuilder builder, Aspose.Words.Lists.List list,
+            string title)
         {
             builder.ParagraphFormat.ClearFormatting();
             builder.Writeln(title);
@@ -514,6 +513,7 @@ namespace ApiExamples
 
             builder.ListFormat.RemoveNumbers();
         }
+
         //ExEnd
 
         /// <summary>
@@ -524,7 +524,7 @@ namespace ApiExamples
         {
             this.PrintOutAllLists();
         }
-        
+
         //ExStart
         //ExFor:ListCollection
         //ExFor:ListCollection.AddCopy(List)
@@ -561,6 +561,7 @@ namespace ApiExamples
             builder.ListFormat.RemoveNumbers();
             builder.Writeln();
         }
+
         //ExEnd		
 
         [Test]
@@ -753,7 +754,6 @@ namespace ApiExamples
 
                     listParaCount++;
                 }
-
             }
             //ExEnd
         }
@@ -777,10 +777,10 @@ namespace ApiExamples
             list.ListLevels[0].ImageData.SetImage(this._image);
 
             Assert.IsTrue(list.ListLevels[0].ImageData.HasImage);
-            
+
             // Delete picture bullet
             list.ListLevels[0].DeletePictureBullet();
-            
+
             Assert.IsNull(list.ListLevels[0].ImageData);
             //ExEnd
         }

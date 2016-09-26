@@ -6,10 +6,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System.Collections;
-
 using Aspose.Words;
 using Aspose.Words.MailMerging;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -93,7 +91,7 @@ namespace ApiExamples
         {
             public new Customer this[int index]
             {
-                get { return (Customer)base[index]; }
+                get { return (Customer) base[index]; }
                 set { base[index] = value; }
             }
         }
@@ -132,7 +130,7 @@ namespace ApiExamples
         {
             public new Order this[int index]
             {
-                get { return (Order)base[index]; }
+                get { return (Order) base[index]; }
                 set { base[index] = value; }
             }
         }
@@ -148,7 +146,7 @@ namespace ApiExamples
                 this.mCustomers = customers;
 
                 // When the data source is initialized, it must be positioned before the first record.
-                this.mRecordIndex= -1;
+                this.mRecordIndex = -1;
             }
 
             /// <summary>
@@ -209,6 +207,7 @@ namespace ApiExamples
                         return null;
                 }
             }
+
             //ExEnd
 
             private bool IsEof

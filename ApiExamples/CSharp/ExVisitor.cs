@@ -7,10 +7,8 @@
 
 using System;
 using System.Text;
-
 using Aspose.Words;
 using Aspose.Words.Fields;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -213,6 +211,7 @@ namespace ApiExamples
             private readonly StringBuilder mBuilder;
             private bool mIsSkipText;
         }
+
         //ExEnd
     }
 }

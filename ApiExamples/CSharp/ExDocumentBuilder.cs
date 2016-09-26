@@ -8,14 +8,12 @@
 using System;
 using System.Drawing;
 using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Drawing.Charts;
 using Aspose.Words.Fields;
 using Aspose.Words.Replacing;
 using Aspose.Words.Tables;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -155,22 +153,27 @@ namespace ApiExamples
             {
                 if (field.Type == FieldType.FieldIf)
                 {
-                    FieldIf fif = (FieldIf)field;
+                    FieldIf fif = (FieldIf) field;
 
-                    Assert.AreEqual(" IF  MERGEFIELD Q223  > 0 \" (and additionally London Weighting of   MERGEFIELD  Q223 \\f £  per hour) \" \"\" ", fif.GetFieldCode());
+                    Assert.AreEqual(
+                        " IF  MERGEFIELD Q223  > 0 \" (and additionally London Weighting of   MERGEFIELD  Q223 \\f £  per hour) \" \"\" ",
+                        fif.GetFieldCode());
 
                     if (nestedFields)
                     {
-                        Assert.AreEqual(" IF  MERGEFIELD Q223  > 0 \" (and additionally London Weighting of   MERGEFIELD  Q223 \\f £  per hour) \" \"\" ", fif.GetFieldCode(true));
+                        Assert.AreEqual(
+                            " IF  MERGEFIELD Q223  > 0 \" (and additionally London Weighting of   MERGEFIELD  Q223 \\f £  per hour) \" \"\" ",
+                            fif.GetFieldCode(true));
                     }
                     else
                     {
-                        Assert.AreEqual(" IF  > 0 \" (and additionally London Weighting of   per hour) \" \"\" ", fif.GetFieldCode(false));
+                        Assert.AreEqual(" IF  > 0 \" (and additionally London Weighting of   per hour) \" \"\" ",
+                            fif.GetFieldCode(false));
                     }
                 }
             }
         }
-        
+
         [Test]
         public void DocumentBuilderAndSave()
         {
@@ -282,8 +285,8 @@ namespace ApiExamples
             shape.RelativeVerticalPosition = RelativeVerticalPosition.Page;
 
             // Calculate image left and top position so it appears in the centre of the page.
-            shape.Left = (builder.PageSetup.PageWidth - shape.Width) / 2;
-            shape.Top = (builder.PageSetup.PageHeight - shape.Height) / 2;
+            shape.Left = (builder.PageSetup.PageWidth - shape.Width)/2;
+            shape.Top = (builder.PageSetup.PageHeight - shape.Height)/2;
 
             doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertWatermark.doc");
             //ExEnd
@@ -339,7 +342,8 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            const string MathMl = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>a</mi><mrow><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>b</mi><mrow><mn>1</mn></mrow></msub></mrow></math>";
+            const string MathMl =
+                "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>a</mi><mrow><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>b</mi><mrow><mn>1</mn></mrow></msub></mrow></math>";
 
             builder.InsertHtml(MathMl);
 
@@ -381,14 +385,14 @@ namespace ApiExamples
             builder.Writeln("");
 
             string[] items = new string[]
-                {
-                    "-- Select your favorite footwear --",
-                    "Sneakers",
-                    "Oxfords",
-                    "Flip-flops",
-                    "Other",
-                    "I prefer to be barefoot"
-                };
+            {
+                "-- Select your favorite footwear --",
+                "Sneakers",
+                "Oxfords",
+                "Flip-flops",
+                "Other",
+                "I prefer to be barefoot"
+            };
 
             // Insert a combo box to select a footwear type.
             builder.InsertComboBox("", items, 0);
@@ -475,7 +479,7 @@ namespace ApiExamples
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = false;
             options.FindWholeWordsOnly = true;
-            
+
             // Move to a particular paragraph's run and replace all occurrences of "bad" with "good" within this run.
             builder.MoveTo(doc.LastSection.Body.Paragraphs[0].Runs[0]);
             builder.CurrentNode.Range.Replace("bad", "good", options);
@@ -715,10 +719,12 @@ namespace ApiExamples
             // Verify that the style was set by expanding to direct formatting.
             doc.ExpandTableStylesToDirectFormatting();
             Assert.AreEqual("Medium Shading 1 Accent 1", table.Style.Name);
-            Assert.AreEqual(TableStyleOptions.FirstColumn | TableStyleOptions.RowBands | TableStyleOptions.FirstRow, table.StyleOptions);
+            Assert.AreEqual(TableStyleOptions.FirstColumn | TableStyleOptions.RowBands | TableStyleOptions.FirstRow,
+                table.StyleOptions);
             Assert.AreEqual(189, table.FirstRow.FirstCell.CellFormat.Shading.BackgroundPatternColor.B);
             Assert.AreEqual(Color.White.ToArgb(), table.FirstRow.FirstCell.FirstParagraph.Runs[0].Font.Color.ToArgb());
-            Assert.AreNotEqual(Color.LightBlue.ToArgb(), table.LastRow.FirstCell.CellFormat.Shading.BackgroundPatternColor.B);
+            Assert.AreNotEqual(Color.LightBlue.ToArgb(),
+                table.LastRow.FirstCell.CellFormat.Shading.BackgroundPatternColor.B);
             Assert.AreEqual(Color.Empty.ToArgb(), table.LastRow.FirstCell.FirstParagraph.Runs[0].Font.Color.ToArgb());
         }
 
@@ -832,7 +838,8 @@ namespace ApiExamples
             builder.InsertCell();
             builder.CellFormat.PreferredWidth = PreferredWidth.Auto;
             builder.CellFormat.Shading.BackgroundPatternColor = Color.LightGreen;
-            builder.Writeln("Cell automatically sized. The size of this cell is calculated from the table preferred width.");
+            builder.Writeln(
+                "Cell automatically sized. The size of this cell is calculated from the table preferred width.");
             builder.Writeln("In this case the cell will fill up the rest of the available space.");
 
             doc.Save(MyDir + @"\Artifacts\Table.CellPreferredWidths.doc");
@@ -956,7 +963,7 @@ namespace ApiExamples
             //ExEnd
 
             // Verify that the cell count of the table is four.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
             Assert.IsNotNull(table);
             Assert.AreEqual(table.GetChildNodes(NodeType.Cell, true).Count, 4);
         }
@@ -1054,7 +1061,8 @@ namespace ApiExamples
             Assert.AreNotEqual(table.LeftIndent, 0.0);
             Assert.AreNotEqual(table.FirstRow.RowFormat.HeightRule, HeightRule.Auto);
             Assert.AreNotEqual(table.FirstRow.FirstCell.CellFormat.Shading.BackgroundPatternColor, Color.Empty);
-            Assert.AreNotEqual(table.FirstRow.FirstCell.FirstParagraph.ParagraphFormat.Alignment, ParagraphAlignment.Left);
+            Assert.AreNotEqual(table.FirstRow.FirstCell.FirstParagraph.ParagraphFormat.Alignment,
+                ParagraphAlignment.Left);
         }
 
         [Test]
@@ -1113,12 +1121,17 @@ namespace ApiExamples
             //ExEnd
 
             // Verify the table was created correctly.
-            Assert.AreEqual(Color.Red.ToArgb(), table.FirstRow.FirstCell.CellFormat.Shading.BackgroundPatternColor.ToArgb());
-            Assert.AreEqual(Color.Green.ToArgb(), table.FirstRow.Cells[1].CellFormat.Shading.BackgroundPatternColor.ToArgb());
-            Assert.AreEqual(Color.Green.ToArgb(), table.FirstRow.Cells[1].CellFormat.Shading.BackgroundPatternColor.ToArgb());
-            Assert.AreEqual(Color.Empty.ToArgb(), table.LastRow.FirstCell.CellFormat.Shading.BackgroundPatternColor.ToArgb());
+            Assert.AreEqual(Color.Red.ToArgb(),
+                table.FirstRow.FirstCell.CellFormat.Shading.BackgroundPatternColor.ToArgb());
+            Assert.AreEqual(Color.Green.ToArgb(),
+                table.FirstRow.Cells[1].CellFormat.Shading.BackgroundPatternColor.ToArgb());
+            Assert.AreEqual(Color.Green.ToArgb(),
+                table.FirstRow.Cells[1].CellFormat.Shading.BackgroundPatternColor.ToArgb());
+            Assert.AreEqual(Color.Empty.ToArgb(),
+                table.LastRow.FirstCell.CellFormat.Shading.BackgroundPatternColor.ToArgb());
 
-            Assert.AreEqual(Color.Black.ToArgb(), table.FirstRow.FirstCell.CellFormat.Borders.Left.Color.ToArgb()); Assert.AreEqual(Color.Black.ToArgb(), table.FirstRow.FirstCell.CellFormat.Borders.Left.Color.ToArgb());
+            Assert.AreEqual(Color.Black.ToArgb(), table.FirstRow.FirstCell.CellFormat.Borders.Left.Color.ToArgb());
+            Assert.AreEqual(Color.Black.ToArgb(), table.FirstRow.FirstCell.CellFormat.Borders.Left.Color.ToArgb());
             Assert.AreEqual(LineStyle.Single, table.FirstRow.FirstCell.CellFormat.Borders.Left.LineStyle);
             Assert.AreEqual(2.0, table.FirstRow.FirstCell.CellFormat.Borders.Left.LineWidth);
             Assert.AreEqual(4.0, table.LastRow.FirstCell.CellFormat.Borders.Left.LineWidth);
@@ -1419,7 +1432,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "DocumentBuilder.TableCellVerticalRotatedFarEastTextOrientation.docx");
 
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
             Cell cell = table.FirstRow.FirstCell;
 
             Assert.AreEqual(TextOrientation.VerticalRotatedFarEast, cell.CellFormat.Orientation);
@@ -1427,7 +1440,7 @@ namespace ApiExamples
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
-            table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            table = (Table) doc.GetChild(NodeType.Table, 0, true);
             cell = table.FirstRow.FirstCell;
 
             Assert.AreEqual(TextOrientation.VerticalRotatedFarEast, cell.CellFormat.Orientation);
@@ -1500,7 +1513,7 @@ namespace ApiExamples
             //ExEnd
 
             // Verify that the image was inserted into the document.
-            Shape shape = (Shape)doc.GetChild(NodeType.Shape, 0, true);
+            Shape shape = (Shape) doc.GetChild(NodeType.Shape, 0, true);
             Assert.IsNotNull(shape);
             Assert.True(shape.HasImage);
         }
@@ -1582,7 +1595,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            string[] items = { "One", "Two", "Three" };
+            string[] items = {"One", "Two", "Three"};
             builder.InsertComboBox("DropDown", items, 0);
             //ExEnd
         }
@@ -1608,9 +1621,8 @@ namespace ApiExamples
         [Test]
         public void InsertSignatureLine()
         {
-            
         }
-        
+
         [Test]
         public void InsertSignatureLineCurrentPozition()
         {
@@ -1633,12 +1645,13 @@ namespace ApiExamples
             options.AllowComments = true;
 
             builder.InsertSignatureLine(options);
-            builder.InsertSignatureLine(options, RelativeHorizontalPosition.RightMargin, 2.0, RelativeVerticalPosition.Page, 3.0, WrapType.Inline);
-            
+            builder.InsertSignatureLine(options, RelativeHorizontalPosition.RightMargin, 2.0,
+                RelativeVerticalPosition.Page, 3.0, WrapType.Inline);
+
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
-            Shape shape = (Shape)doc.GetChild(NodeType.Shape, 0, true);
+            Shape shape = (Shape) doc.GetChild(NodeType.Shape, 0, true);
             SignatureLine signatureLine = shape.SignatureLine;
 
             Assert.AreEqual("John Doe", signatureLine.Signer);
@@ -1652,7 +1665,7 @@ namespace ApiExamples
             Assert.AreEqual(false, signatureLine.IsValid);
             //ExEnd
 
-            shape = (Shape)doc.GetChild(NodeType.Shape, 1, true);
+            shape = (Shape) doc.GetChild(NodeType.Shape, 1, true);
             Assert.AreEqual(RelativeHorizontalPosition.RightMargin, shape.RelativeHorizontalPosition);
             Assert.AreEqual(2.0, shape.Left);
             Assert.AreEqual(RelativeVerticalPosition.Page, shape.RelativeVerticalPosition);
@@ -1705,8 +1718,10 @@ namespace ApiExamples
             paragraphFormat.SpaceAfter = 25;
 
             // Output text
-            builder.Writeln("I'm a very nice formatted paragraph. I'm intended to demonstrate how the left and right indents affect word wrapping.");
-            builder.Writeln("I'm another nice formatted paragraph. I'm intended to demonstrate how the space after paragraph looks like.");
+            builder.Writeln(
+                "I'm a very nice formatted paragraph. I'm intended to demonstrate how the left and right indents affect word wrapping.");
+            builder.Writeln(
+                "I'm another nice formatted paragraph. I'm intended to demonstrate how the space after paragraph looks like.");
             //ExEnd
         }
 
@@ -1850,7 +1865,8 @@ namespace ApiExamples
             builder.InsertFootnote(FootnoteType.Footnote, "Footnote text.", "242");
             //ExEnd
 
-            Assert.AreEqual("Footnote text.", doc.GetChildNodes(NodeType.Footnote, true)[0].ToString(SaveFormat.Text).Trim());
+            Assert.AreEqual("Footnote text.",
+                doc.GetChildNodes(NodeType.Footnote, true)[0].ToString(SaveFormat.Text).Trim());
         }
 
         [Test]
@@ -1870,8 +1886,8 @@ namespace ApiExamples
             doc.Save(dstStream, SaveFormat.Docx);
 
             doc = new Document(dstStream);
-            foot = (Footnote)doc.GetChildNodes(NodeType.Footnote, true)[0];
-            
+            foot = (Footnote) doc.GetChildNodes(NodeType.Footnote, true)[0];
+
             Assert.IsFalse(foot.IsAuto);
             Assert.AreEqual("242", foot.ReferenceMark);
             Assert.AreEqual("242 Footnote text.\r", foot.GetText());
@@ -1980,10 +1996,11 @@ namespace ApiExamples
             //ExSummary:Shows how to insert an OLE object into a document.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
-            
+
             Image representingImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
-            
-            Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, representingImage);
+
+            Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false,
+                representingImage);
             Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, true, null);
 
             // Double click on the image in the .doc to see the spreadsheet.
@@ -2001,7 +2018,8 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Assert.That(() => builder.InsertOleObject("", "checkbox", false, true, null), Throws.TypeOf<ArgumentException>());
+            Assert.That(() => builder.InsertOleObject("", "checkbox", false, true, null),
+                Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
@@ -2014,7 +2032,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             builder.InsertChart(ChartType.Pie, ConvertUtil.PixelToPoint(300),
-                                ConvertUtil.PixelToPoint(300));
+                ConvertUtil.PixelToPoint(300));
 
             doc.Save(MyDir + @"\Artifacts\Document.InsertedChartDouble.doc");
             //ExEnd
@@ -2034,21 +2052,27 @@ namespace ApiExamples
             seriesColl.Clear();
 
             // Create category names array, second category will be null.
-            string[] categories = new string[] { "Cat1", null, "Cat3", "Cat4", "Cat5", null };
+            string[] categories = new string[] {"Cat1", null, "Cat3", "Cat4", "Cat5", null};
 
             // Adding new series with empty (double.NaN) values.
-            seriesColl.Add("AW Series 1", categories, new double[] { 1, 2, double.NaN, 4, 5, 6 });
-            seriesColl.Add("AW Series 2", categories, new double[] { 2, 3, double.NaN, 5, 6, 7 });
-            Assert.That(() => seriesColl.Add("AW Series 3", categories, new double[] { double.NaN, 4, 5, double.NaN, double.NaN }), Throws.TypeOf<ArgumentException>());
-            Assert.That(() => seriesColl.Add("AW Series 4", categories, new double[] { double.NaN, double.NaN, double.NaN, double.NaN, double.NaN }), Throws.TypeOf<ArgumentException>());
+            seriesColl.Add("AW Series 1", categories, new double[] {1, 2, double.NaN, 4, 5, 6});
+            seriesColl.Add("AW Series 2", categories, new double[] {2, 3, double.NaN, 5, 6, 7});
+            Assert.That(
+                () => seriesColl.Add("AW Series 3", categories, new double[] {double.NaN, 4, 5, double.NaN, double.NaN}),
+                Throws.TypeOf<ArgumentException>());
+            Assert.That(
+                () =>
+                    seriesColl.Add("AW Series 4", categories,
+                        new double[] {double.NaN, double.NaN, double.NaN, double.NaN, double.NaN}),
+                Throws.TypeOf<ArgumentException>());
         }
-        
+
         [Test]
         public void EmptyValuesInChartData()
         {
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
-            
+
             // Add chart with default data.
             Shape shape = builder.InsertChart(ChartType.Line, 432, 252);
             Chart chart = shape.Chart;
@@ -2057,13 +2081,14 @@ namespace ApiExamples
             seriesColl.Clear();
 
             // Create category names array, second category will be null.
-            string[] categories = new string[] { "Cat1", null, "Cat3", "Cat4", "Cat5", null };
+            string[] categories = new string[] {"Cat1", null, "Cat3", "Cat4", "Cat5", null};
 
             // Adding new series with empty (double.NaN) values.
-            seriesColl.Add("AW Series 1", categories, new double[] { 1, 2, double.NaN, 4, 5, 6 });
-            seriesColl.Add("AW Series 2", categories, new double[] { 2, 3, double.NaN, 5, 6, 7 });
-            seriesColl.Add("AW Series 3", categories, new double[] { double.NaN, 4, 5, double.NaN, 7, 8 });
-            seriesColl.Add("AW Series 4", categories, new double[] { double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, 9 });
+            seriesColl.Add("AW Series 1", categories, new double[] {1, 2, double.NaN, 4, 5, 6});
+            seriesColl.Add("AW Series 2", categories, new double[] {2, 3, double.NaN, 5, 6, 7});
+            seriesColl.Add("AW Series 3", categories, new double[] {double.NaN, 4, 5, double.NaN, 7, 8});
+            seriesColl.Add("AW Series 4", categories,
+                new double[] {double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, 9});
 
             doc.Save(MyDir + @"\Artifacts\EmptyValuesInChartData.docx");
         }
@@ -2077,8 +2102,9 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertChart(ChartType.Pie, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100,
-                                    200, 100, WrapType.Square);
+            builder.InsertChart(ChartType.Pie, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin,
+                100,
+                200, 100, WrapType.Square);
 
             doc.Save(MyDir + @"\Artifacts\Document.InsertedChartRelativePosition.doc");
             //ExEnd

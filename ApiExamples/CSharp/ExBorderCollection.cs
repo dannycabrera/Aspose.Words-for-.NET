@@ -28,7 +28,7 @@ namespace ApiExamples
             while (enumerator.MoveNext())
             {
                 // Do something useful.
-                Border b = (Border)enumerator.Current;
+                Border b = (Border) enumerator.Current;
                 b.Color = Color.RoyalBlue;
                 b.LineStyle = LineStyle.Double;
             }

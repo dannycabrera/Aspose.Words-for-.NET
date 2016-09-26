@@ -9,11 +9,9 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.MailMerging;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -57,7 +55,7 @@ namespace ApiExamples
             sr.Close();
 
             // Execute mail merge.
-            doc.MailMerge.Execute(new string[] { "htmlField1" }, new string[] { htmltext });
+            doc.MailMerge.Execute(new string[] {"htmlField1"}, new string[] {htmltext});
 
             // Save resulting document with a new name.
             doc.Save(MyDir + @"\Artifacts\MailMerge.InsertHtml.doc");
@@ -76,7 +74,7 @@ namespace ApiExamples
                     // Insert the text for this merge field as HTML data, using DocumentBuilder.
                     DocumentBuilder builder = new DocumentBuilder(e.Document);
                     builder.MoveToMergeField(e.DocumentFieldName);
-                    builder.InsertHtml((string)e.FieldValue);
+                    builder.InsertHtml((string) e.FieldValue);
 
                     // The HTML text itself should not be inserted.
                     // We have already inserted it as an HTML.
@@ -89,6 +87,7 @@ namespace ApiExamples
                 // Do nothing.
             }
         }
+
         //ExEnd
 
 
@@ -138,7 +137,7 @@ namespace ApiExamples
                     DocumentBuilder builder = new DocumentBuilder(e.Document);
                     builder.MoveToMergeField(e.FieldName);
                     builder.InsertCheckBox(e.DocumentFieldName + this.mCheckBoxCount.ToString(), false, 0);
-                    builder.Write((string)e.FieldValue);
+                    builder.Write((string) e.FieldValue);
                     this.mCheckBoxCount++;
                 }
             }
@@ -170,6 +169,7 @@ namespace ApiExamples
             }
             return dataTable;
         }
+
         //ExEnd
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace ApiExamples
         private static bool IsOdd(int value)
         {
             // The code is a bit complex, but otherwise automatic conversion to VB does not work.
-            return ((value / 2) * 2).Equals(value);
+            return ((value/2)*2).Equals(value);
         }
 
         /// <summary>
@@ -268,6 +268,7 @@ namespace ApiExamples
             }
             return dataTable;
         }
+
         //ExEnd
 
         [Test]
@@ -279,13 +280,13 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "MailMerge.MergeImageSimple.doc");
 
             // Pass a URL which points to the image to merge into the document.
-            doc.MailMerge.Execute(new string[] { "Logo" }, new object[] { "http://www.aspose.com/images/aspose-logo.gif" });
+            doc.MailMerge.Execute(new string[] {"Logo"}, new object[] {"http://www.aspose.com/images/aspose-logo.gif"});
 
             doc.Save(MyDir + @"\Artifacts\MailMerge.MergeImageFromUrl.doc");
             //ExEnd
 
             // Verify the image was merged into the document.
-            Shape logoImage = (Shape)doc.GetChild(NodeType.Shape, 0, true);
+            Shape logoImage = (Shape) doc.GetChild(NodeType.Shape, 0, true);
             Assert.IsNotNull(logoImage);
             Assert.IsTrue(logoImage.HasImage);
         }
@@ -298,7 +299,7 @@ namespace ApiExamples
         {
             this.MailMergeImageFromBlob();
         }
-        
+
         //ExStart
         //ExFor:MailMerge.FieldMergingCallback
         //ExFor:MailMerge.ExecuteWithRegions(IDataReader,string)
@@ -348,11 +349,12 @@ namespace ApiExamples
             void IFieldMergingCallback.ImageFieldMerging(ImageFieldMergingArgs e)
             {
                 // The field value is a byte array, just cast it and create a stream on it.
-                MemoryStream imageStream = new MemoryStream((byte[])e.FieldValue);
+                MemoryStream imageStream = new MemoryStream((byte[]) e.FieldValue);
                 // Now the mail merge engine will retrieve the image from the stream.
                 e.ImageStream = imageStream;
             }
         }
+
         //ExEnd
     }
 }

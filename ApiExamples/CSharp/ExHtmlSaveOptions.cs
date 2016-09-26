@@ -30,7 +30,8 @@ namespace ApiExamples
             saveOptions.SaveFormat = saveFormat;
             saveOptions.ExportPageMargins = true;
 
-            Save(doc, @"\Artifacts\HtmlSaveOptions.ExportPageMargins." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+            Save(doc, @"\Artifacts\HtmlSaveOptions.ExportPageMargins." + saveFormat.ToString().ToLower(), saveFormat,
+                saveOptions);
         }
 
         #endregion
@@ -90,7 +91,8 @@ namespace ApiExamples
             var saveOptions = new HtmlSaveOptions();
             saveOptions.ExportTextBoxAsSvg = textBoxAsSvg;
 
-            Save(doc, @"\Artifacts\HtmlSaveOptions.ExportTextBoxAsSvg." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+            Save(doc, @"\Artifacts\HtmlSaveOptions.ExportTextBoxAsSvg." + saveFormat.ToString().ToLower(), saveFormat,
+                saveOptions);
 
             switch (saveFormat)
             {
@@ -144,7 +146,7 @@ namespace ApiExamples
                     return inputDoc;
                 case SaveFormat.Epub:
                     inputDoc.Save(MyDir + outputDocPath, saveOptions);
-                        //There is draw images bug with epub. Need write to NSezganov
+                    //There is draw images bug with epub. Need write to NSezganov
                     return inputDoc;
             }
 

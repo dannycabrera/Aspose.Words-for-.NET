@@ -11,11 +11,9 @@ using System.Data.OleDb;
 using System.Diagnostics;
 using System.Web;
 using System.Collections;
-
 using Aspose.Words.Fields;
 using Aspose.Words;
 using Aspose.Words.MailMerging;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -43,7 +41,9 @@ namespace ApiExamples
                 new object[] {"James Bond", "MI5 Headquarters", "Milbank", "", "London"});
 
             // Send the document in Word format to the client browser with an option to save to disk or open inside the current browser.
-            Assert.That(() => doc.Save(Response, @"\Artifacts\MailMerge.ExecuteArray.doc", ContentDisposition.Inline, null), Throws.TypeOf<ArgumentNullException>()); //Thrown because HttpResponse is null in the test.
+            Assert.That(
+                () => doc.Save(Response, @"\Artifacts\MailMerge.ExecuteArray.doc", ContentDisposition.Inline, null),
+                Throws.TypeOf<ArgumentNullException>()); //Thrown because HttpResponse is null in the test.
             //ExEnd
         }
 
@@ -79,11 +79,11 @@ namespace ApiExamples
         {
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
-            
+
             builder.InsertField("MERGEFIELD field", null);
 
             doc.MailMerge.TrimWhitespaces = option;
-            doc.MailMerge.Execute(new[] { "field" }, new object[] { " first line\rsecond line\rthird line " });
+            doc.MailMerge.Execute(new[] {"field"}, new object[] {" first line\rsecond line\rthird line "});
 
             Assert.AreEqual(expectedText, doc.GetText());
         }
@@ -98,8 +98,8 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "MailingLabelsDemo.doc");
 
             // Open the database connection.
-            string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + 
-                DatabaseDir + "Northwind.mdb";
+            string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                DatabaseDir + "Northwind.mdb";
             OleDbConnection conn = new OleDbConnection(connString);
             try
             {
@@ -109,7 +109,7 @@ namespace ApiExamples
             {
                 Debug.WriteLine(ex);
             }
-            
+
 
             // Open the data reader.
             OleDbCommand cmd = new OleDbCommand(
@@ -135,7 +135,7 @@ namespace ApiExamples
         {
             this.ExecuteDataView();
         }
-        
+
         //ExStart
         //ExFor:MailMerge.Execute(DataView)
         //ExSummary:Executes mail merge from an ADO.NET DataView.
@@ -146,11 +146,11 @@ namespace ApiExamples
 
             // Get the data from the database.
             DataTable orderTable = GetOrders();
-            
+
             // Create a customized view of the data.
             DataView orderView = new DataView(orderTable);
             orderView.RowFilter = "OrderId = 10444";
-            
+
             // Populate the document with the data.
             doc.MailMerge.Execute(orderView);
 
@@ -160,8 +160,8 @@ namespace ApiExamples
         private static DataTable GetOrders()
         {
             // Open a database connection.
-            string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + 
-                DatabaseDir + "Northwind.mdb";
+            string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                DatabaseDir + "Northwind.mdb";
             OleDbConnection conn = new OleDbConnection(connString);
             conn.Open();
 
@@ -178,6 +178,7 @@ namespace ApiExamples
 
             return table;
         }
+
         //ExEnd
 
 
@@ -223,7 +224,7 @@ namespace ApiExamples
         {
             this.ExecuteWithRegionsDataTable();
         }
-        
+
         //ExStart
         //ExFor:Document.MailMerge
         //ExFor:MailMerge.ExecuteWithRegions(DataTable)
@@ -273,8 +274,8 @@ namespace ApiExamples
         private static DataTable ExecuteDataTable(string commandText)
         {
             // Open the database connection.
-            string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + 
-                DatabaseDir + "Northwind.mdb";
+            string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                DatabaseDir + "Northwind.mdb";
             OleDbConnection conn = new OleDbConnection(connString);
             conn.Open();
 
@@ -289,6 +290,7 @@ namespace ApiExamples
 
             return table;
         }
+
         //ExEnd
 
         [Test]
@@ -381,7 +383,9 @@ namespace ApiExamples
 
         [Test]
         [TestCase(true, "{{ testfield1 }}value 1{{ testfield3 }}\f")]
-        [TestCase(false, "\u0013MERGEFIELD \"testfield1\"\u0014«testfield1»\u0015value 1\u0013MERGEFIELD \"testfield3\"\u0014«testfield3»\u0015\f")]
+        [TestCase(false,
+             "\u0013MERGEFIELD \"testfield1\"\u0014«testfield1»\u0015value 1\u0013MERGEFIELD \"testfield3\"\u0014«testfield3»\u0015\f"
+         )]
         public void MustasheTemplateSyntax(bool restoreTags, string sectionText)
         {
             Document doc = new Document();
@@ -395,7 +399,7 @@ namespace ApiExamples
 
             DataTable table = new DataTable("Test");
             table.Columns.Add("testfield2");
-            table.Rows.Add(new object[] { "value 1" });
+            table.Rows.Add(new object[] {"value 1"});
 
             doc.MailMerge.Execute(table);
 
@@ -416,7 +420,7 @@ namespace ApiExamples
             //ExFor:MailMergeRegionInfo.EndField
             //ExFor:MailMergeRegionInfo.Level
             //ExSummary:Shows how to get MailMergeRegionInfo and work with it
-            Document doc = new Document(MyDir+ "MailMerge.TestRegionsHierarchy.doc");
+            Document doc = new Document(MyDir + "MailMerge.TestRegionsHierarchy.doc");
 
             //Returns a full hierarchy of regions (with fields) available in the document.
             MailMergeRegionInfo regionInfo = doc.MailMerge.GetRegionsHierarchy();
@@ -424,27 +428,27 @@ namespace ApiExamples
             //Get top regions in the document
             ArrayList topRegions = regionInfo.Regions;
             Assert.AreEqual(2, topRegions.Count);
-            Assert.AreEqual(((MailMergeRegionInfo)topRegions[0]).Name, "Region1");
-            Assert.AreEqual(((MailMergeRegionInfo)topRegions[1]).Name, "Region2");
-            Assert.AreEqual(1, ((MailMergeRegionInfo)topRegions[0]).Level);
-            Assert.AreEqual(1, ((MailMergeRegionInfo)topRegions[1]).Level);
+            Assert.AreEqual(((MailMergeRegionInfo) topRegions[0]).Name, "Region1");
+            Assert.AreEqual(((MailMergeRegionInfo) topRegions[1]).Name, "Region2");
+            Assert.AreEqual(1, ((MailMergeRegionInfo) topRegions[0]).Level);
+            Assert.AreEqual(1, ((MailMergeRegionInfo) topRegions[1]).Level);
 
             //Get nested region in first top region
-            ArrayList nestedRegions = ((MailMergeRegionInfo)topRegions[0]).Regions;
+            ArrayList nestedRegions = ((MailMergeRegionInfo) topRegions[0]).Regions;
             Assert.AreEqual(2, nestedRegions.Count);
-            Assert.AreEqual(((MailMergeRegionInfo)nestedRegions[0]).Name, "NestedRegion1");
-            Assert.AreEqual(((MailMergeRegionInfo)nestedRegions[1]).Name, "NestedRegion2");
-            Assert.AreEqual(2, ((MailMergeRegionInfo)nestedRegions[0]).Level);
-            Assert.AreEqual(2, ((MailMergeRegionInfo)nestedRegions[1]).Level);
+            Assert.AreEqual(((MailMergeRegionInfo) nestedRegions[0]).Name, "NestedRegion1");
+            Assert.AreEqual(((MailMergeRegionInfo) nestedRegions[1]).Name, "NestedRegion2");
+            Assert.AreEqual(2, ((MailMergeRegionInfo) nestedRegions[0]).Level);
+            Assert.AreEqual(2, ((MailMergeRegionInfo) nestedRegions[1]).Level);
 
             //Get field list in first top region
-            ArrayList fieldList = ((MailMergeRegionInfo)topRegions[0]).Fields;
+            ArrayList fieldList = ((MailMergeRegionInfo) topRegions[0]).Fields;
             Assert.AreEqual(4, fieldList.Count);
 
-            FieldMergeField startFieldMergeField = ((MailMergeRegionInfo)nestedRegions[0]).StartField;
+            FieldMergeField startFieldMergeField = ((MailMergeRegionInfo) nestedRegions[0]).StartField;
             Assert.AreEqual("TableStart:NestedRegion1", startFieldMergeField.FieldName);
 
-            FieldMergeField endFieldMergeField = ((MailMergeRegionInfo)nestedRegions[0]).EndField;
+            FieldMergeField endFieldMergeField = ((MailMergeRegionInfo) nestedRegions[0]).EndField;
             Assert.AreEqual("TableEnd:NestedRegion1", endFieldMergeField.FieldName);
             //ExEnd
         }
@@ -454,7 +458,7 @@ namespace ApiExamples
         {
             Document document = new Document();
             document.MailMerge.UseNonMergeFields = true;
-           
+
             MailMergeCallbackStub mailMergeCallbackStub = new MailMergeCallbackStub();
             document.MailMerge.MailMergeCallback = mailMergeCallbackStub;
 

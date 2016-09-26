@@ -26,7 +26,8 @@ namespace ApiExamples
             //ExSummary:Shows how to remove every signature from a document.
             //By stream:
             Stream docStreamIn = new FileStream(MyDir + "Document.DigitalSignature.docx", FileMode.Open);
-            Stream docStreamOut = new FileStream(MyDir + @"\Artifacts\Document.NoSignatures.FromStream.doc", FileMode.Create);
+            Stream docStreamOut = new FileStream(MyDir + @"\Artifacts\Document.NoSignatures.FromStream.doc",
+                FileMode.Create);
 
             DigitalSignatureUtil.RemoveAllSignatures(docStreamIn, docStreamOut);
 
@@ -73,10 +74,11 @@ namespace ApiExamples
             string outputDocFileName = MyDir + @"\Artifacts\Document.DigitalSignature.docx";
 
             DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "My comment", DateTime.Now);
-            
+
             //By Stream
             Stream docInStream = new FileStream(MyDir + "Document.DigitalSignature.docx", FileMode.Open);
-            Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.DigitalSignature.docx", FileMode.OpenOrCreate);
+            Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.DigitalSignature.docx",
+                FileMode.OpenOrCreate);
 
             DigitalSignatureUtil.Sign(docInStream, docOutStream, ch, "My comment", DateTime.Now);
             //ExEnd
@@ -97,7 +99,8 @@ namespace ApiExamples
             // Digitally sign encrypted with "docPassword" document in the specified path.
             Assert.That(
                 () =>
-                    DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now, "docPassword1"),
+                    DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now,
+                        "docPassword1"),
                 Throws.TypeOf<IncorrectPasswordException>(), "The document password is incorrect.");
         }
 
@@ -116,7 +119,8 @@ namespace ApiExamples
             string outputDocFileName = MyDir + @"\Artifacts\Document.Encrypted.docx";
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
-            DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now, "docPassword");
+            DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now,
+                "docPassword");
 
             // Open encrypted document from a file.
             Document signedDoc = new Document(outputDocFileName, new LoadOptions("docPassword"));
@@ -159,9 +163,11 @@ namespace ApiExamples
         [Test]
         public void NoArgumentsForSing()
         {
-            Assert.That(() => DigitalSignatureUtil.Sign(String.Empty, String.Empty, null, String.Empty, DateTime.Now, String.Empty),
+            Assert.That(
+                () =>
+                    DigitalSignatureUtil.Sign(String.Empty, String.Empty, null, String.Empty, DateTime.Now,
+                        String.Empty),
                 Throws.TypeOf<ArgumentException>());
-            
         }
 
         [Test]
@@ -172,9 +178,11 @@ namespace ApiExamples
             string outputDocFileName = MyDir + @"\Artifacts\Document.DigitalSignature.docx";
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
-            Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword"),
-               Throws.TypeOf<NullReferenceException>());
+            Assert.That(
+                () =>
+                    DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now,
+                        "docPassword"),
+                Throws.TypeOf<NullReferenceException>());
         }
-        
     }
 }

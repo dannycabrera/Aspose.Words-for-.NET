@@ -1,8 +1,6 @@
 ﻿using System;
-
 using Aspose.Words;
 using Aspose.Words.Fields;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -35,7 +33,7 @@ namespace ApiExamples
             para.InsertField(" AUTHOR ", "Test Field Value", null, false);
 
             //Add a run of text
-            Run run = new Run(doc) { Text = " Hello World!" };
+            Run run = new Run(doc) {Text = " Hello World!"};
             para.AppendChild(run);
 
             //Using field code and field value before a run of text
@@ -50,8 +48,9 @@ namespace ApiExamples
             Document doc = DocumentHelper.CreateDocumentFillWithDummyText();
 
             InsertFieldUsingFieldCode(doc, " AUTHOR ", null, false, 1);
-            
-            Assert.AreEqual("\u0013 AUTHOR \u0014Test Author\u0015Hello World!\r", DocumentHelper.GetParagraphText(doc, 1));
+
+            Assert.AreEqual("\u0013 AUTHOR \u0014Test Author\u0015Hello World!\r",
+                DocumentHelper.GetParagraphText(doc, 1));
         }
 
         [Test]
@@ -63,7 +62,8 @@ namespace ApiExamples
 
             InsertFieldUsingFieldCode(doc, " DATE ", null, true, 1);
 
-            Assert.AreEqual(String.Format("Hello World!\u0013 DATE \u0014{0}\u0015\r", date), DocumentHelper.GetParagraphText(doc, 1));
+            Assert.AreEqual(String.Format("Hello World!\u0013 DATE \u0014{0}\u0015\r", date),
+                DocumentHelper.GetParagraphText(doc, 1));
         }
 
         [Test]
@@ -127,7 +127,8 @@ namespace ApiExamples
 
             InsertFieldUsingFieldCodeFieldString(doc, " AUTHOR ", "Test Field Value", run, false, 1);
 
-            Assert.AreEqual("Hello World!\u0013 AUTHOR \u0014Test Field Value\u0015 Hello World!\r", DocumentHelper.GetParagraphText(doc, 1));
+            Assert.AreEqual("Hello World!\u0013 AUTHOR \u0014Test Field Value\u0015 Hello World!\r",
+                DocumentHelper.GetParagraphText(doc, 1));
         }
 
         [Test]
@@ -140,7 +141,8 @@ namespace ApiExamples
 
             InsertFieldUsingFieldCodeFieldString(doc, " AUTHOR ", "", run, true, 1);
 
-            Assert.AreEqual("Hello World! Hello World!\u0013 AUTHOR \u0014\u0015\r", DocumentHelper.GetParagraphText(doc, 1));
+            Assert.AreEqual("Hello World! Hello World!\u0013 AUTHOR \u0014\u0015\r",
+                DocumentHelper.GetParagraphText(doc, 1));
         }
 
         /// <summary>
@@ -165,7 +167,7 @@ namespace ApiExamples
             Document doc = DocumentHelper.CreateDocumentWithoutDummyText();
 
             InsertFieldUsingFieldType(doc, FieldType.FieldAuthor, true, null, false, 0);
-            
+
             Assert.AreEqual("\u0013 AUTHOR \u0014Test Author\u0015\r", DocumentHelper.GetParagraphText(doc, 0));
         }
 
@@ -188,7 +190,8 @@ namespace ApiExamples
         /// <summary>
         /// Insert field into the first paragraph of the current document using field type
         /// </summary>
-        private static void InsertFieldUsingFieldType(Document doc, FieldType fieldType, bool updateField, Node refNode, bool isAfter, int paraIndex)
+        private static void InsertFieldUsingFieldType(Document doc, FieldType fieldType, bool updateField, Node refNode,
+            bool isAfter, int paraIndex)
         {
             Paragraph para = DocumentHelper.GetParagraph(doc, paraIndex);
             para.InsertField(fieldType, updateField, refNode, isAfter);
@@ -197,7 +200,8 @@ namespace ApiExamples
         /// <summary>
         /// Insert field into the first paragraph of the current document using field code
         /// </summary>
-        private static void InsertFieldUsingFieldCode(Document doc, string fieldCode, Node refNode, bool isAfter, int paraIndex)
+        private static void InsertFieldUsingFieldCode(Document doc, string fieldCode, Node refNode, bool isAfter,
+            int paraIndex)
         {
             Paragraph para = DocumentHelper.GetParagraph(doc, paraIndex);
             para.InsertField(fieldCode, refNode, isAfter);
@@ -206,7 +210,8 @@ namespace ApiExamples
         /// <summary>
         /// Insert field into the first paragraph of the current document using field code and field string
         /// </summary>
-        private static void InsertFieldUsingFieldCodeFieldString(Document doc, string fieldCode, string fieldValue, Node refNode, bool isAfter, int paraIndex)
+        private static void InsertFieldUsingFieldCodeFieldString(Document doc, string fieldCode, string fieldValue,
+            Node refNode, bool isAfter, int paraIndex)
         {
             Paragraph para = DocumentHelper.GetParagraph(doc, paraIndex);
             para.InsertField(fieldCode, fieldValue, refNode, isAfter);

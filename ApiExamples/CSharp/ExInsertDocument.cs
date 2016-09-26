@@ -8,7 +8,6 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-
 using Aspose.Words;
 using Aspose.Words.MailMerging;
 using Aspose.Words.Replacing;
@@ -34,14 +33,15 @@ namespace ApiExamples
         {
             // Make sure that the node is either a paragraph or table.
             if ((!insertAfterNode.NodeType.Equals(NodeType.Paragraph)) &
-              (!insertAfterNode.NodeType.Equals(NodeType.Table)))
+                (!insertAfterNode.NodeType.Equals(NodeType.Table)))
                 throw new ArgumentException("The destination node should be either a paragraph or table.");
 
             // We will be inserting into the parent of the destination paragraph.
             CompositeNode dstStory = insertAfterNode.ParentNode;
 
             // This object will be translating styles and lists during the import.
-            NodeImporter importer = new NodeImporter(srcDoc, insertAfterNode.Document, ImportFormatMode.KeepSourceFormatting);
+            NodeImporter importer = new NodeImporter(srcDoc, insertAfterNode.Document,
+                ImportFormatMode.KeepSourceFormatting);
 
             // Loop through all sections in the source document.
             foreach (Section srcSection in srcDoc.Sections)
@@ -52,7 +52,7 @@ namespace ApiExamples
                     // Let's skip the node if it is a last empty paragraph in a section.
                     if (srcNode.NodeType.Equals(NodeType.Paragraph))
                     {
-                        Paragraph para = (Paragraph)srcNode;
+                        Paragraph para = (Paragraph) srcNode;
                         if (para.IsEndOfSection && !para.HasChildNodes)
                             continue;
                     }
@@ -66,6 +66,7 @@ namespace ApiExamples
                 }
             }
         }
+
         //ExEnd
 
         [Test]
@@ -109,8 +110,8 @@ namespace ApiExamples
             // The corresponding data for this field contains fully qualified path to the document
             // that should be inserted to this field.
             mainDoc.MailMerge.Execute(
-                new string[] { "Document_1" },
-                new string[] { MyDir + "InsertDocument2.doc" });
+                new string[] {"Document_1"},
+                new string[] {MyDir + "InsertDocument2.doc"});
 
             mainDoc.Save(MyDir + @"\Artifacts\InsertDocumentAtMailMerge.doc");
         }
@@ -131,7 +132,7 @@ namespace ApiExamples
                     builder.MoveToMergeField(e.DocumentFieldName);
 
                     // The name of the document to load and insert is stored in the field value.
-                    Document subDoc = new Document((string)e.FieldValue);
+                    Document subDoc = new Document((string) e.FieldValue);
 
                     // Insert the document.
                     InsertDocument(builder.CurrentParagraph, subDoc);
@@ -150,6 +151,7 @@ namespace ApiExamples
                 // Do nothing.
             }
         }
+
         //ExEnd
 
         //ExStart
@@ -171,7 +173,7 @@ namespace ApiExamples
                     builder.MoveToMergeField(e.DocumentFieldName);
 
                     // Load the document from the blob field.
-                    MemoryStream stream = new MemoryStream((byte[])e.FieldValue);
+                    MemoryStream stream = new MemoryStream((byte[]) e.FieldValue);
                     Document subDoc = new Document(stream);
 
                     // Insert the document.
@@ -191,6 +193,7 @@ namespace ApiExamples
                 // Do nothing.
             }
         }
+
         //ExEnd
 
         /// <summary>
@@ -230,7 +233,7 @@ namespace ApiExamples
                 Document subDoc = new Document(MyDir + "InsertDocument2.doc");
 
                 // Insert a document after the paragraph, containing the match text.
-                Paragraph para = (Paragraph)e.MatchNode.ParentNode;
+                Paragraph para = (Paragraph) e.MatchNode.ParentNode;
                 InsertDocument(para, subDoc);
 
                 // Remove the paragraph with the match text.
@@ -239,6 +242,7 @@ namespace ApiExamples
                 return ReplaceAction.Skip;
             }
         }
+
         //ExEnd
     }
 }

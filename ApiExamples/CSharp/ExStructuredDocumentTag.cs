@@ -7,9 +7,7 @@
 
 using Aspose.Words;
 using Aspose.Words.Markup;
-
 using NUnit.Framework;
-
 using System.IO;
 
 namespace ApiExamples
@@ -27,11 +25,11 @@ namespace ApiExamples
             NodeCollection sdts = doc.GetChildNodes(NodeType.StructuredDocumentTag, true);
 
             //Assert that the node have sdttype - RepeatingSection and it's not detected as RichText
-            StructuredDocumentTag sdt = (StructuredDocumentTag)sdts[0];
+            StructuredDocumentTag sdt = (StructuredDocumentTag) sdts[0];
             Assert.AreEqual(SdtType.RepeatingSection, sdt.SdtType);
 
             //Assert that the node have sdttype - RichText 
-            sdt = (StructuredDocumentTag)sdts[1];
+            sdt = (StructuredDocumentTag) sdts[1];
             Assert.AreNotEqual(SdtType.RepeatingSection, sdt.SdtType);
         }
 
@@ -40,7 +38,7 @@ namespace ApiExamples
         {
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
-            
+
             StructuredDocumentTag sdtCheckBox = new StructuredDocumentTag(doc, SdtType.Checkbox, MarkupLevel.Inline);
             sdtCheckBox.Checked = true;
 
@@ -51,8 +49,8 @@ namespace ApiExamples
             doc.Save(dstStream, SaveFormat.Docx);
 
             NodeCollection sdts = doc.GetChildNodes(NodeType.StructuredDocumentTag, true);
-            
-            StructuredDocumentTag sdt = (StructuredDocumentTag)sdts[0];
+
+            StructuredDocumentTag sdt = (StructuredDocumentTag) sdts[0];
             Assert.AreEqual(true, sdt.Checked);
         }
     }

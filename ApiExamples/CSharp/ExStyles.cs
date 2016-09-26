@@ -8,9 +8,7 @@
 using System;
 using System.Drawing;
 using System.IO;
-
 using Aspose.Words;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -85,7 +83,8 @@ namespace ApiExamples
             foreach (Paragraph para in doc.GetChildNodes(NodeType.Paragraph, true))
             {
                 // Check if this paragraph is formatted using the TOC result based styles. This is any style between TOC and TOC9.
-                if (para.ParagraphFormat.Style.StyleIdentifier >= StyleIdentifier.Toc1 && para.ParagraphFormat.Style.StyleIdentifier <= StyleIdentifier.Toc9)
+                if (para.ParagraphFormat.Style.StyleIdentifier >= StyleIdentifier.Toc1 &&
+                    para.ParagraphFormat.Style.StyleIdentifier <= StyleIdentifier.Toc9)
                 {
                     // Get the first tab used in this paragraph, this should be the tab used to align the page numbers.
                     TabStop tab = para.ParagraphFormat.TabStops[0];
@@ -148,7 +147,7 @@ namespace ApiExamples
 
         [Test]
         public void OverwriteStyleDifferentDocument()
-        {         
+        {
             Document dstDoc = new Document();
             Document srcDoc = new Document();
 

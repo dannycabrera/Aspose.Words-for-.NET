@@ -16,7 +16,6 @@ using Aspose.BarCode.BarCodeRecognition;
 using Aspose.Words;
 using Aspose.Words.Fields;
 using Aspose.Words.Replacing;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -255,7 +254,14 @@ namespace ApiExamples
 
             FieldBuilder fieldBuilder = new FieldBuilder(FieldType.FieldIncludeText);
 
-            Assert.That(() => fieldBuilder.AddArgument(argumentBuilder).AddArgument("=").AddArgument("BestField").AddArgument(10).AddArgument(20.0).BuildAndInsert(run), Throws.TypeOf<ArgumentException>());
+            Assert.That(
+                () =>
+                    fieldBuilder.AddArgument(argumentBuilder)
+                        .AddArgument("=")
+                        .AddArgument("BestField")
+                        .AddArgument(10)
+                        .AddArgument(20.0)
+                        .BuildAndInsert(run), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
@@ -298,7 +304,8 @@ namespace ApiExamples
             BarCodeReader barcodeReader = new BarCodeReader(imageStream, DecodeType.QR);
             while (barcodeReader.Read())
             {
-                Console.WriteLine("Codetext found: " + barcodeReader.GetCodeText() + ", Symbology: " + barcodeReader.GetCodeType());
+                Console.WriteLine("Codetext found: " + barcodeReader.GetCodeText() + ", Symbology: " +
+                                  barcodeReader.GetCodeType());
             }
 
             //close the reader
@@ -318,18 +325,18 @@ namespace ApiExamples
             loadOptions.PreserveIncludePictureField = true;
 
             Document doc = new Document(MyDir + "UpdateFieldIgnoringMergeFormat.docx", loadOptions);
-            
+
             foreach (Field field in doc.Range.Fields)
             {
                 if (field.Type.Equals(FieldType.FieldIncludePicture))
                 {
-                    FieldIncludePicture includePicture = (FieldIncludePicture)field;
+                    FieldIncludePicture includePicture = (FieldIncludePicture) field;
 
                     includePicture.SourceFullName = MyDir + @"\Images\dotnet-logo.png";
                     includePicture.Update(true);
                 }
             }
-            
+
             doc.UpdateFields();
             doc.Save(MyDir + @"\Artifacts\UpdateFieldIgnoringMergeFormat.docx");
             //ExEnd
@@ -382,7 +389,7 @@ namespace ApiExamples
                     }
                 }
             }
-            
+
             if (startNode != null && endNode != null)
             {
                 RemoveSequence(startNode, endNode);
@@ -398,7 +405,7 @@ namespace ApiExamples
                 FieldType fType = field.FieldType;
                 if (fType == FieldType.FieldTOC)
                 {
-                    Paragraph para = (Paragraph)field.GetAncestor(NodeType.Paragraph);
+                    Paragraph para = (Paragraph) field.GetAncestor(NodeType.Paragraph);
                     para.Range.UpdateFields();
                     break;
                 }
@@ -418,7 +425,7 @@ namespace ApiExamples
                 //Check whether current contains end node
                 if (curNode.IsComposite)
                 {
-                    CompositeNode curComposite = (CompositeNode)curNode;
+                    CompositeNode curComposite = (CompositeNode) curNode;
                     if (!curComposite.GetChildNodes(NodeType.Any, true).Contains(end) &&
                         !curComposite.GetChildNodes(NodeType.Any, true).Contains(start))
                     {

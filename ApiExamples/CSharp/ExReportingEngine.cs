@@ -23,7 +23,8 @@ namespace ApiExamples
         [Test]
         public void StretchImagefitHeight()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitHeight>>", ShapeType.TextBox);
+            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitHeight>>",
+                ShapeType.TextBox);
 
             ImageStream imageStream = new ImageStream(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
@@ -52,7 +53,8 @@ namespace ApiExamples
         [Test]
         public void StretchImagefitWidth()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitWidth>>", ShapeType.TextBox);
+            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitWidth>>",
+                ShapeType.TextBox);
 
             ImageStream imageStream = new ImageStream(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
@@ -81,7 +83,8 @@ namespace ApiExamples
         [Test]
         public void StretchImagefitSize()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitSize>>", ShapeType.TextBox);
+            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitSize>>",
+                ShapeType.TextBox);
 
             ImageStream imageStream = new ImageStream(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
@@ -113,10 +116,12 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder();
 
             //Add templete to the document for reporting engine
-            DocumentHelper.InsertBuilderText(builder, new[] { "<<[missingObject.First().id]>>", "<<foreach [in missingObject]>><<[id]>><</foreach>>" });
+            DocumentHelper.InsertBuilderText(builder,
+                new[] {"<<[missingObject.First().id]>>", "<<foreach [in missingObject]>><<[id]>><</foreach>>"});
 
             //Assert that build report failed without "ReportBuildOptions.AllowMissingMembers"
-            Assert.That(() => BuildReport(builder.Document, new DataSet(), "", ReportBuildOptions.None), Throws.TypeOf<InvalidOperationException>());
+            Assert.That(() => BuildReport(builder.Document, new DataSet(), "", ReportBuildOptions.None),
+                Throws.TypeOf<InvalidOperationException>());
         }
 
         [Test]
@@ -125,17 +130,19 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder();
 
             //Add templete to the document for reporting engine
-            DocumentHelper.InsertBuilderText(builder, new[] { "<<[missingObject.First().id]>>", "<<foreach [in missingObject]>><<[id]>><</foreach>>" });
+            DocumentHelper.InsertBuilderText(builder,
+                new[] {"<<[missingObject.First().id]>>", "<<foreach [in missingObject]>><<[id]>><</foreach>>"});
 
             BuildReport(builder.Document, new DataSet(), "", ReportBuildOptions.AllowMissingMembers);
 
             //Assert that build report success with "ReportBuildOptions.AllowMissingMembers"
             Assert.AreEqual(
-            ControlChar.ParagraphBreak + ControlChar.ParagraphBreak + ControlChar.SectionBreak,
-            builder.Document.GetText());
+                ControlChar.ParagraphBreak + ControlChar.ParagraphBreak + ControlChar.SectionBreak,
+                builder.Document.GetText());
         }
 
-        private static void BuildReport(Document document, object dataSource, string dataSourceName, ReportBuildOptions reportBuildOptions)
+        private static void BuildReport(Document document, object dataSource, string dataSourceName,
+            ReportBuildOptions reportBuildOptions)
         {
             ReportingEngine engine = new ReportingEngine();
             engine.Options = reportBuildOptions;

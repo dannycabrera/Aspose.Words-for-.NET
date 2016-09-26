@@ -7,9 +7,7 @@
 
 using Aspose.Words;
 using Aspose.Words.Saving;
-
 using NUnit.Framework;
-
 using System.Collections.Generic;
 
 namespace ApiExamples
@@ -36,17 +34,33 @@ namespace ApiExamples
         {
             get
             {
-                yield return new TestCaseData(new HtmlFixedSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
-                yield return new TestCaseData(new ImageSaveOptions(SaveFormat.Jpeg), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
-                yield return new TestCaseData(new PdfSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
-                yield return new TestCaseData(new PsSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
-                yield return new TestCaseData(new SvgSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
-                yield return new TestCaseData(new XamlFixedSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
-                yield return new TestCaseData(new XpsSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
-                yield return new TestCaseData(new SwfSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
+                yield return
+                    new TestCaseData(new HtmlFixedSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1,
+                        EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
+                yield return
+                    new TestCaseData(new ImageSaveOptions(SaveFormat.Jpeg), 100, NumeralFormat.ArabicIndic, int.MaxValue,
+                        1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
+                yield return
+                    new TestCaseData(new PdfSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1,
+                        EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
+                yield return
+                    new TestCaseData(new PsSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1,
+                        EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
+                yield return
+                    new TestCaseData(new SvgSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1,
+                        EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
+                yield return
+                    new TestCaseData(new XamlFixedSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1,
+                        EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
+                yield return
+                    new TestCaseData(new XpsSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1,
+                        EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
+                yield return
+                    new TestCaseData(new SwfSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1,
+                        EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
             }
         }
-        
+
         [Test]
         [TestCaseSource(nameof(FixedPageSaveOptionsDefaultValuesData))]
         public void FixedPageSaveOptionsDefaultValues(FixedPageSaveOptions objectSaveOptions)
@@ -57,16 +71,22 @@ namespace ApiExamples
             Assert.AreEqual(NumeralFormat.European, saveOptions.NumeralFormat);
             Assert.AreEqual(int.MaxValue, saveOptions.PageCount);
             Assert.AreEqual(0, saveOptions.PageIndex);
-            Assert.AreEqual(EmfPlusDualRenderingMode.EmfPlusWithFallback, saveOptions.MetafileRenderingOptions.EmfPlusDualRenderingMode);
+            Assert.AreEqual(EmfPlusDualRenderingMode.EmfPlusWithFallback,
+                saveOptions.MetafileRenderingOptions.EmfPlusDualRenderingMode);
             Assert.AreEqual(true, saveOptions.MetafileRenderingOptions.EmulateRasterOperations);
-            Assert.AreEqual(objectSaveOptions.GetType().Name == "ImageSaveOptions" ? MetafileRenderingMode.Bitmap : MetafileRenderingMode.VectorWithFallback, saveOptions.MetafileRenderingOptions.RenderingMode);
+            Assert.AreEqual(
+                objectSaveOptions.GetType().Name == "ImageSaveOptions"
+                    ? MetafileRenderingMode.Bitmap
+                    : MetafileRenderingMode.VectorWithFallback, saveOptions.MetafileRenderingOptions.RenderingMode);
             Assert.AreEqual(true, saveOptions.MetafileRenderingOptions.UseEmfEmbeddedToWmf);
         }
 
         [Test]
         [TestCaseSource(nameof(FixedPageSaveOptionsData))]
-        public void SaveInFixedFormat(FixedPageSaveOptions objectSaveOptions, int jpegQuality, NumeralFormat numeralFormat, int pageCount, int pageIndex, 
-            EmfPlusDualRenderingMode emfPlusDualRenderingMode, bool emulateRasterOperations,  MetafileRenderingMode metafileRendering, bool useEmfEmbeddedToWmf)
+        public void SaveInFixedFormat(FixedPageSaveOptions objectSaveOptions, int jpegQuality,
+            NumeralFormat numeralFormat, int pageCount, int pageIndex,
+            EmfPlusDualRenderingMode emfPlusDualRenderingMode, bool emulateRasterOperations,
+            MetafileRenderingMode metafileRendering, bool useEmfEmbeddedToWmf)
         {
             FixedPageSaveOptions saveOptions = objectSaveOptions;
 

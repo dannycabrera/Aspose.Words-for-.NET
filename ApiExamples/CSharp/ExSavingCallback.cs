@@ -1,5 +1,4 @@
 ﻿using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Saving;
 using NUnit.Framework;
@@ -42,12 +41,16 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "Rendering.doc");
 
-            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions { PageIndex = 0, PageCount = doc.PageCount };
+            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
+            {
+                PageIndex = 0,
+                PageCount = doc.PageCount
+            };
             htmlFixedSaveOptions.PageSavingCallback = new CustomPageFileNamePageSavingCallback();
 
             doc.Save(MyDir + @"\Artifacts\Rendering.html", htmlFixedSaveOptions);
 
-            string[] filePaths = Directory.GetFiles(MyDir + @"\Artifacts\" , "Page_*.html");
+            string[] filePaths = Directory.GetFiles(MyDir + @"\Artifacts\", "Page_*.html");
 
             for (int i = 0; i < doc.PageCount; i++)
             {
@@ -62,7 +65,11 @@ namespace ApiExamples
             Stream docStream = new FileStream(MyDir + "Rendering.doc", FileMode.Open);
             Document doc = new Document(docStream);
 
-            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions { PageIndex = 0, PageCount = doc.PageCount };
+            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
+            {
+                PageIndex = 0,
+                PageCount = doc.PageCount
+            };
             htmlFixedSaveOptions.PageSavingCallback = new CustomPageStreamPageSavingCallback();
 
             doc.Save(MyDir + @"\Artifacts\Rendering.html", htmlFixedSaveOptions);

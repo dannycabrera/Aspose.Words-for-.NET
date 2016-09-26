@@ -6,9 +6,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System;
-
 using Aspose.Words;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -37,7 +35,8 @@ namespace ApiExamples
             footnote.FirstParagraph.Runs.Add(new Run(doc, "Footnote text."));
             //ExEnd
 
-            Assert.AreEqual("Footnote text.", doc.GetChildNodes(NodeType.Footnote, true)[0].ToString(SaveFormat.Text).Trim());
+            Assert.AreEqual("Footnote text.",
+                doc.GetChildNodes(NodeType.Footnote, true)[0].ToString(SaveFormat.Text).Trim());
         }
 
         [Test]
@@ -63,5 +62,4 @@ namespace ApiExamples
             Assert.AreEqual("Comment text.\r", (doc.GetChildNodes(NodeType.Comment, true)[0]).GetText());
         }
     }
-
 }

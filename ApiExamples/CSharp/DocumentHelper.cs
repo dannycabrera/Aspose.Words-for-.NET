@@ -8,10 +8,8 @@
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Tables;
-
 using System;
 using System.IO;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -199,7 +197,7 @@ namespace ApiExamples
         {
             Paragraph para = GetParagraph(doc, paraIndex);
 
-            Run run = new Run(doc) { Text = text };
+            Run run = new Run(doc) {Text = text};
 
             para.AppendChild(run);
 

@@ -7,12 +7,10 @@
 
 using System;
 using System.Drawing;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Replacing;
 using Aspose.Words.Tables;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -107,7 +105,8 @@ namespace ApiExamples
                 int tableDepth = GetNestedDepthOfTable(table);
 
                 if (tableDepth > 0)
-                    Console.WriteLine("Table #{0} is nested inside another table at depth of {1}", tableIndex, tableDepth);
+                    Console.WriteLine("Table #{0} is nested inside another table at depth of {1}", tableIndex,
+                        tableDepth);
                 else
                     Console.WriteLine("Table #{0} is a non nested table (is not a child of another table)", tableIndex);
 
@@ -169,6 +168,7 @@ namespace ApiExamples
             // No cell contains a table
             return tableCount;
         }
+
         //ExEnd
 
         /// <summary>
@@ -213,8 +213,8 @@ namespace ApiExamples
             if (textBox.StoryType != StoryType.Textbox)
                 throw new ArgumentException("Can only convert a shape of type textbox");
 
-            Document doc = (Document)textBox.Document;
-            Section section = (Section)textBox.GetAncestor(NodeType.Section);
+            Document doc = (Document) textBox.Document;
+            Section section = (Section) textBox.GetAncestor(NodeType.Section);
 
             // Create a table to replace the textbox and transfer the same content and formatting.
             Table table = new Table(doc);
@@ -263,7 +263,6 @@ namespace ApiExamples
                     // Most other options are left by default.
                     horizontalAlignment = TableAlignment.Left;
                     break;
-
             }
 
             table.Alignment = horizontalAlignment;
@@ -278,6 +277,7 @@ namespace ApiExamples
             // Remove the empty textbox from the document.
             textBox.Remove();
         }
+
         //ExEnd
 
         [Test]
@@ -327,7 +327,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.Document.doc");
 
             // Gets the first cell in the document.
-            Cell cell = (Cell)doc.GetChild(NodeType.Cell, 0, true);
+            Cell cell = (Cell) doc.GetChild(NodeType.Cell, 0, true);
 
             // Ensure the cell is valid (the last child is a paragraph).
             cell.EnsureMinimum();
@@ -347,7 +347,7 @@ namespace ApiExamples
             //ExId:TableBordersOutline
             //ExSummary:Shows how to apply a outline border to a table.
             Document doc = new Document(MyDir + "Table.EmptyTable.doc");
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // Align the table to the center of the page.
             table.Alignment = TableAlignment.Center;
@@ -376,7 +376,8 @@ namespace ApiExamples
             Assert.AreEqual(Color.Green.ToArgb(), table.FirstRow.RowFormat.Borders.Bottom.Color.ToArgb());
             Assert.AreNotEqual(Color.Green.ToArgb(), table.FirstRow.RowFormat.Borders.Horizontal.Color.ToArgb());
             Assert.AreNotEqual(Color.Green.ToArgb(), table.FirstRow.RowFormat.Borders.Vertical.Color.ToArgb());
-            Assert.AreEqual(Color.LightGreen.ToArgb(), table.FirstRow.FirstCell.CellFormat.Shading.ForegroundPatternColor.ToArgb());
+            Assert.AreEqual(Color.LightGreen.ToArgb(),
+                table.FirstRow.FirstCell.CellFormat.Shading.ForegroundPatternColor.ToArgb());
         }
 
         [Test]
@@ -387,7 +388,7 @@ namespace ApiExamples
             //ExId:TableBordersAll
             //ExSummary:Shows how to build a table with all borders enabled (grid).
             Document doc = new Document(MyDir + "Table.EmptyTable.doc");
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // Clear any existing borders from the table.
             table.ClearBorders();
@@ -417,7 +418,7 @@ namespace ApiExamples
             //ExId:RowFormatProperties
             //ExSummary:Shows how to modify formatting of a table row.
             Document doc = new Document(MyDir + "Table.Document.doc");
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // Retrieve the first row in the table.
             Row firstRow = table.FirstRow;
@@ -431,7 +432,7 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\Table.RowFormat.doc");
 
             doc = new Document(MyDir + @"\Artifacts\Table.RowFormat.doc");
-            table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            table = (Table) doc.GetChild(NodeType.Table, 0, true);
             Assert.AreEqual(LineStyle.None, table.FirstRow.RowFormat.Borders.LineStyle);
             Assert.AreEqual(HeightRule.Auto, table.FirstRow.RowFormat.HeightRule);
             Assert.True(table.FirstRow.RowFormat.AllowBreakAcrossPages);
@@ -446,7 +447,7 @@ namespace ApiExamples
             //ExId:CellFormatProperties
             //ExSummary:Shows how to modify formatting of a table cell.
             Document doc = new Document(MyDir + "Table.Document.doc");
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // Retrieve the first cell in the table.
             Cell firstCell = table.FirstRow.FirstCell;
@@ -460,10 +461,11 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\Table.CellFormat.doc");
 
             doc = new Document(MyDir + @"\Artifacts\Table.CellFormat.doc");
-            table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            table = (Table) doc.GetChild(NodeType.Table, 0, true);
             Assert.AreEqual(30, table.FirstRow.FirstCell.CellFormat.Width);
             Assert.AreEqual(TextOrientation.Downward, table.FirstRow.FirstCell.CellFormat.Orientation);
-            Assert.AreEqual(Color.LightGreen.ToArgb(), table.FirstRow.FirstCell.CellFormat.Shading.ForegroundPatternColor.ToArgb());
+            Assert.AreEqual(Color.LightGreen.ToArgb(),
+                table.FirstRow.FirstCell.CellFormat.Shading.ForegroundPatternColor.ToArgb());
         }
 
         [Test]
@@ -476,7 +478,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.Document.doc");
 
             // Remove all borders from the first table in the document.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // Clear the borders all cells in the table.
             table.ClearBorders();
@@ -496,12 +498,12 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.SimpleTable.doc");
 
             // Get the first table in the document.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = true;
             options.FindWholeWordsOnly = true;
-            
+
             // Replace any instances of our string in the entire table.
             table.Range.Replace("Carrots", "Eggs", options);
             // Replace any instances of our string in the last cell of the table only.
@@ -522,7 +524,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.SimpleTable.doc");
 
             // Get the first table in the document.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // The range text will include control characters such as "\a" for a cell.
             // You can call ToString on the desired node to retrieve the plain text content.
@@ -544,7 +546,8 @@ namespace ApiExamples
             Console.WriteLine(table.LastRow.LastCell.Range.Text);
             //ExEnd
 
-            Assert.AreEqual("Apples\r" + ControlChar.Cell + "20\r" + ControlChar.Cell + ControlChar.Cell, table.Rows[1].Range.Text);
+            Assert.AreEqual("Apples\r" + ControlChar.Cell + "20\r" + ControlChar.Cell + ControlChar.Cell,
+                table.Rows[1].Range.Text);
             Assert.AreEqual("50\r\a", table.LastRow.LastCell.Range.Text);
         }
 
@@ -557,11 +560,11 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.SimpleTable.doc");
 
             // Retrieve the first table in the document.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // Create a clone of the table.
-            Table tableClone = (Table)table.Clone(true);
-            
+            Table tableClone = (Table) table.Clone(true);
+
             // Insert the cloned table into the document after the original
             table.ParentNode.InsertAfter(tableClone, table);
 
@@ -592,14 +595,14 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.TableAcrossPage.doc");
 
             // Retrieve the first table in the document.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             //ExStart
             //ExFor:RowFormat.AllowBreakAcrossPages
             //ExId:RowFormatAllowBreaks
             //ExSummary:Shows how to disable rows breaking across pages for every row in a table.
             // Disable breaking across pages for all rows in the table.
-            foreach(Row row in table)
+            foreach (Row row in table)
                 row.RowFormat.AllowBreakAcrossPages = false;
             //ExEnd
 
@@ -631,7 +634,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.TableAcrossPage.doc");
 
             // Retrieve the first table in the document.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             //ExStart
             //ExFor:ParagraphFormat.KeepWithNext
@@ -654,7 +657,7 @@ namespace ApiExamples
 
             // Verify the correct paragraphs were set properly.
             foreach (Paragraph para in table.GetChildNodes(NodeType.Paragraph, true))
-                if (para.IsEndOfCell && ((Cell)para.ParentNode).ParentRow.IsLastRow)
+                if (para.IsEndOfCell && ((Cell) para.ParentNode).ParentRow.IsLastRow)
                     Assert.False(para.ParagraphFormat.KeepWithNext);
                 else
                     Assert.True(para.ParagraphFormat.KeepWithNext);
@@ -670,10 +673,10 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.SimpleTable.doc");
 
             // Retrieve the first table in the document.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // Clone the last row in the table.
-            Row clonedRow = (Row)table.LastRow.Clone(true);
+            Row clonedRow = (Row) table.LastRow.Clone(true);
 
             // Remove all content from the cloned row's cells. This makes the row ready for
             // new content to be inserted into.
@@ -711,7 +714,7 @@ namespace ApiExamples
             builder.InsertCell();
             // This will cause the table to be structured using column widths as in previous verisons
             // instead of fitted to the page width like in the newer versions.
-            table.AutoFit(AutoFitBehavior.FixedColumnWidths); 
+            table.AutoFit(AutoFitBehavior.FixedColumnWidths);
 
             // Continue with building your table as usual...
             //ExEnd
@@ -728,7 +731,7 @@ namespace ApiExamples
 
             // Keep a reference to the table being built.
             Table table = builder.StartTable();
-  
+
             builder.InsertCell();
             // Clear all borders to match the defaults used in previous versions.
             table.ClearBorders();
@@ -798,7 +801,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "Table.Document.doc");
 
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
             //ExStart
             //ExFor:NodeCollection.IndexOf
             //ExId:IndexOfTable
@@ -836,7 +839,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.Document.doc");
 
             // Find the first table in the document
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
             //ExStart
             //ExFor:PreferredWidthType
             //ExFor:PreferredWidth.Type
@@ -893,7 +896,7 @@ namespace ApiExamples
             Cell cell = new Cell(doc);
             cell.CellFormat.Shading.BackgroundPatternColor = Color.LightBlue;
             cell.CellFormat.Width = 80;
-            
+
             // Add a paragraph to the cell as well as a new run with some text.
             cell.AppendChild(new Paragraph(doc));
             cell.FirstParagraph.AppendChild(new Run(doc, "Row 1, Cell 1 Text"));
@@ -913,7 +916,8 @@ namespace ApiExamples
             Assert.AreEqual(1, doc.GetChildNodes(NodeType.Table, true).Count);
             Assert.AreEqual(1, doc.GetChildNodes(NodeType.Row, true).Count);
             Assert.AreEqual(2, doc.GetChildNodes(NodeType.Cell, true).Count);
-            Assert.AreEqual("Row 1, Cell 1 Text\r\nRow 1, Cell 2 Text", doc.FirstSection.Body.Tables[0].ToString(SaveFormat.Text).Trim());
+            Assert.AreEqual("Row 1, Cell 1 Text\r\nRow 1, Cell 2 Text",
+                doc.FirstSection.Body.Tables[0].ToString(SaveFormat.Text).Trim());
         }
 
         //ExStart
@@ -976,6 +980,7 @@ namespace ApiExamples
 
             return table;
         }
+
         //ExEnd
 
         //ExStart
@@ -990,7 +995,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.MergedCells.doc");
 
             // Retrieve the first table in the document.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             foreach (Row row in table.Rows)
             {
@@ -1000,14 +1005,16 @@ namespace ApiExamples
                 }
             }
 
-            Assert.AreEqual("The cell at R1, C1 is horizontally merged.", this.PrintCellMergeType(table.FirstRow.FirstCell)); //ExSkip
+            Assert.AreEqual("The cell at R1, C1 is horizontally merged.",
+                this.PrintCellMergeType(table.FirstRow.FirstCell)); //ExSkip
         }
 
         public string PrintCellMergeType(Cell cell)
         {
             bool isHorizontallyMerged = cell.CellFormat.HorizontalMerge != CellMerge.None;
             bool isVerticallyMerged = cell.CellFormat.VerticalMerge != CellMerge.None;
-            string cellLocation = string.Format("R{0}, C{1}", cell.ParentRow.ParentTable.IndexOf(cell.ParentRow) + 1, cell.ParentRow.IndexOf(cell) + 1);
+            string cellLocation = string.Format("R{0}, C{1}", cell.ParentRow.ParentTable.IndexOf(cell.ParentRow) + 1,
+                cell.ParentRow.IndexOf(cell) + 1);
 
             if (isHorizontallyMerged && isVerticallyMerged)
                 return string.Format("The cell at {0} is both horizontally and vertically merged", cellLocation);
@@ -1018,6 +1025,7 @@ namespace ApiExamples
             else
                 return string.Format("The cell at {0} is not merged", cellLocation);
         }
+
         //ExEnd
 
         [Test]
@@ -1045,8 +1053,9 @@ namespace ApiExamples
 
             // Verify the cells were merged
             int mergedCellsCount = 0;
-            foreach(Cell cell in table.GetChildNodes(NodeType.Cell, true))
-                if(cell.CellFormat.HorizontalMerge != CellMerge.None || cell.CellFormat.HorizontalMerge != CellMerge.None)
+            foreach (Cell cell in table.GetChildNodes(NodeType.Cell, true))
+                if (cell.CellFormat.HorizontalMerge != CellMerge.None ||
+                    cell.CellFormat.HorizontalMerge != CellMerge.None)
                     mergedCellsCount++;
 
             Assert.AreEqual(4, mergedCellsCount);
@@ -1067,10 +1076,12 @@ namespace ApiExamples
             Table parentTable = startCell.ParentRow.ParentTable;
 
             // Find the row and cell indices for the start and end cell.
-            Point startCellPos = new Point(startCell.ParentRow.IndexOf(startCell), parentTable.IndexOf(startCell.ParentRow));
+            Point startCellPos = new Point(startCell.ParentRow.IndexOf(startCell),
+                parentTable.IndexOf(startCell.ParentRow));
             Point endCellPos = new Point(endCell.ParentRow.IndexOf(endCell), parentTable.IndexOf(endCell.ParentRow));
             // Create the range of cells to be merged based off these indices. Inverse each index if the end cell if before the start cell. 
-            Rectangle mergeRange = new Rectangle(Math.Min(startCellPos.X, endCellPos.X), Math.Min(startCellPos.Y, endCellPos.Y), 
+            Rectangle mergeRange = new Rectangle(Math.Min(startCellPos.X, endCellPos.X),
+                Math.Min(startCellPos.Y, endCellPos.Y),
                 Math.Abs(endCellPos.X - startCellPos.X) + 1, Math.Abs(endCellPos.Y - startCellPos.Y) + 1);
 
             foreach (Row row in parentTable.Rows)
@@ -1095,6 +1106,7 @@ namespace ApiExamples
                 }
             }
         }
+
         //ExEnd
 
         [Test]
@@ -1114,8 +1126,8 @@ namespace ApiExamples
 
             // Get the first and second table in the document.
             // The rows from the second table will be appended to the end of the first table.
-            Table firstTable = (Table)doc.GetChild(NodeType.Table, 0, true);
-            Table secondTable = (Table)doc.GetChild(NodeType.Table, 1, true);
+            Table firstTable = (Table) doc.GetChild(NodeType.Table, 0, true);
+            Table secondTable = (Table) doc.GetChild(NodeType.Table, 1, true);
 
             // Append all rows from the current table to the next.
             // Due to the design of tables even tables with different cell count and widths can be joined into one table.
@@ -1143,13 +1155,13 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Table.SimpleTable.doc");
 
             // Get the first table in the document.
-            Table firstTable = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table firstTable = (Table) doc.GetChild(NodeType.Table, 0, true);
 
             // We will split the table at the third row (inclusive).
             Row row = firstTable.Rows[2];
 
             // Create a new container for the split table.
-            Table table = (Table)firstTable.Clone(false);
+            Table table = (Table) firstTable.Clone(false);
 
             // Insert the container after the original.
             firstTable.ParentNode.InsertAfter(table, firstTable);
@@ -1163,8 +1175,7 @@ namespace ApiExamples
             {
                 currentRow = firstTable.LastRow;
                 table.PrependChild(currentRow);
-            }
-            while (currentRow != row);
+            } while (currentRow != row);
 
             doc.Save(MyDir + @"\Artifacts\Table.SplitTable.doc");
             //ExEnd
@@ -1172,7 +1183,7 @@ namespace ApiExamples
             doc = new Document(MyDir + @"\Artifacts\Table.SplitTable.doc");
             // Test we are adding the rows in the correct order and the 
             // selected row was also moved.
-            Assert.AreEqual(row, table.FirstRow); 
+            Assert.AreEqual(row, table.FirstRow);
 
             Assert.AreEqual(2, firstTable.Rows.Count);
             Assert.AreEqual(2, table.Rows.Count);

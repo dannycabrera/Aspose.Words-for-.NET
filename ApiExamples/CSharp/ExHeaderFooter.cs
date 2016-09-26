@@ -10,7 +10,6 @@ using Aspose.Words.Drawing;
 using Aspose.Words.Saving;
 using Aspose.Words.Tables;
 using Aspose.Words.Replacing;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -39,7 +38,8 @@ namespace ApiExamples
             //ExEnd
 
             doc = new Document(MyDir + @"\Artifacts\HeaderFooter.CreateFooter.doc");
-            Assert.True(doc.FirstSection.HeadersFooters[HeaderFooterType.FooterPrimary].Range.Text.Contains("TEST FOOTER"));
+            Assert.True(
+                doc.FirstSection.HeadersFooters[HeaderFooterType.FooterPrimary].Range.Text.Contains("TEST FOOTER"));
         }
 
         [Test]
@@ -89,7 +89,8 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "HeaderFooter.RemoveFooters.doc");
 
             HtmlSaveOptions saveOptions = new HtmlSaveOptions(SaveFormat.Html);
-            saveOptions.ExportHeadersFootersMode = ExportHeadersFootersMode.None; // Disables exporting headers and footers.
+            saveOptions.ExportHeadersFootersMode = ExportHeadersFootersMode.None;
+                // Disables exporting headers and footers.
 
             doc.Save(MyDir + @"\Artifacts\HeaderFooter.DisableHeadersFooters.html", saveOptions);
             //ExEnd
@@ -114,7 +115,7 @@ namespace ApiExamples
 
             HeaderFooterCollection headersFooters = doc.FirstSection.HeadersFooters;
             HeaderFooter footer = headersFooters[HeaderFooterType.FooterPrimary];
-            
+
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = false;
             options.FindWholeWordsOnly = false;
@@ -173,7 +174,8 @@ namespace ApiExamples
             // Insert absolutely positioned image into the top/left corner of the header.
             // Distance from the top/left edges of the page is set to 10 points.
             string imageFileName = MyDir + @"\Images\Aspose.Words.gif";
-            builder.InsertImage(imageFileName, RelativeHorizontalPosition.Page, 10, RelativeVerticalPosition.Page, 10, 50, 50, WrapType.Through);
+            builder.InsertImage(imageFileName, RelativeHorizontalPosition.Page, 10, RelativeVerticalPosition.Page, 10,
+                50, 50, WrapType.Through);
 
             builder.ParagraphFormat.Alignment = ParagraphAlignment.Right;
             // Specify another header title for other pages.
@@ -192,7 +194,7 @@ namespace ApiExamples
             builder.InsertCell();
 
             // Set first cell to 1/3 of the page width.
-            builder.CellFormat.PreferredWidth = PreferredWidth.FromPercent(100 / 3);
+            builder.CellFormat.PreferredWidth = PreferredWidth.FromPercent(100/3);
 
             // Insert page numbering text here.
             // It uses PAGE and NUMPAGES fields to auto calculate current page number and total number of pages.
@@ -206,7 +208,7 @@ namespace ApiExamples
 
             builder.InsertCell();
             // Set the second cell to 2/3 of the page width.
-            builder.CellFormat.PreferredWidth = PreferredWidth.FromPercent(100 * 2 / 3);
+            builder.CellFormat.PreferredWidth = PreferredWidth.FromPercent(100*2/3);
 
             builder.Write("(C) 2001 Aspose Pty Ltd. All rights reserved.");
 
@@ -250,8 +252,8 @@ namespace ApiExamples
             HeaderFooter primaryFooter = currentSection.HeadersFooters[HeaderFooterType.FooterPrimary];
 
             Row row = primaryFooter.Tables[0].FirstRow;
-            row.FirstCell.CellFormat.PreferredWidth = PreferredWidth.FromPercent(100 / 3);
-            row.LastCell.CellFormat.PreferredWidth = PreferredWidth.FromPercent(100 * 2 / 3);
+            row.FirstCell.CellFormat.PreferredWidth = PreferredWidth.FromPercent(100/3);
+            row.LastCell.CellFormat.PreferredWidth = PreferredWidth.FromPercent(100*2/3);
 
             // Save the resulting document.
             doc.Save(MyDir + @"\Artifacts\HeaderFooter.Primer.doc");
@@ -262,7 +264,7 @@ namespace ApiExamples
         /// </summary>
         private static void CopyHeadersFootersFromPreviousSection(Section section)
         {
-            Section previousSection = (Section)section.PreviousSibling;
+            Section previousSection = (Section) section.PreviousSibling;
 
             if (previousSection == null)
                 return;
@@ -272,6 +274,7 @@ namespace ApiExamples
             foreach (HeaderFooter headerFooter in previousSection.HeadersFooters)
                 section.HeadersFooters.Add(headerFooter.Clone(true));
         }
+
         //ExEnd
     }
 }

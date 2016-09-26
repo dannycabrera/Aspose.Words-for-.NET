@@ -8,15 +8,12 @@
 using System;
 using System.Collections;
 using System.Drawing;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Fields;
 using Aspose.Words.Fonts;
 using Aspose.Words.Tables;
-
 using NUnit.Framework;
-
 using System.IO;
 
 namespace ApiExamples
@@ -66,7 +63,7 @@ namespace ApiExamples
             Document doc = new Document();
 
             // Get the paragraph from the document, we will be adding runs of text to it.
-            Paragraph para = (Paragraph)doc.GetChild(NodeType.Paragraph, 0, true);
+            Paragraph para = (Paragraph) doc.GetChild(NodeType.Paragraph, 0, true);
 
             Run run = new Run(doc, "All capitals");
             run.Font.AllCaps = true;
@@ -112,7 +109,7 @@ namespace ApiExamples
         public void DefaulValuesEmbeddedFontsParametrs()
         {
             Document doc = new Document();
-            
+
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
@@ -120,18 +117,30 @@ namespace ApiExamples
             Assert.IsFalse(doc.FontInfos.EmbedSystemFonts); //Bug: ? this default value is true, not false
             Assert.IsFalse(doc.FontInfos.SaveSubsetFonts);
         }
-        
+
         //ToDo: Add gold test asserts
         [Test]
-        [TestCase(true, false, false, Description = "Save document with embedded TrueType fonts. System fonts are not included. Saves full versions of embedding fonts.")]
-        [TestCase(true, true, false, Description = "Save document with embedded TrueType fonts. System fonts are included. Saves full versions of embedding fonts.")]
-        [TestCase(true, true, true, Description = "Save document with embedded TrueType fonts. System fonts are included. Saves subset of embedding fonts.")]
-        [TestCase(true, false, true, Description = "Save document with embedded TrueType fonts. System fonts are not included. Saves subset of embedding fonts.")]
+        [TestCase(true, false, false,
+             Description =
+                 "Save document with embedded TrueType fonts. System fonts are not included. Saves full versions of embedding fonts."
+         )]
+        [TestCase(true, true, false,
+             Description =
+                 "Save document with embedded TrueType fonts. System fonts are included. Saves full versions of embedding fonts."
+         )]
+        [TestCase(true, true, true,
+             Description =
+                 "Save document with embedded TrueType fonts. System fonts are included. Saves subset of embedding fonts."
+         )]
+        [TestCase(true, false, true,
+             Description =
+                 "Save document with embedded TrueType fonts. System fonts are not included. Saves subset of embedding fonts."
+         )]
         [TestCase(false, false, false, Description = "Remove embedded fonts from the saved document.")]
         public void WorkWithEmbeddedFonts(bool embedTrueTypeFonts, bool embedSystemFonts, bool saveSubsetFonts)
         {
             Document doc = new Document(MyDir + "Document.doc");
-            
+
             FontInfoCollection fontInfos = doc.FontInfos;
             fontInfos.EmbedTrueTypeFonts = embedTrueTypeFonts;
             fontInfos.EmbedSystemFonts = embedSystemFonts;
@@ -151,7 +160,7 @@ namespace ApiExamples
             Document doc = new Document();
 
             // Get the paragraph from the document, we will be adding runs of text to it.
-            Paragraph para = (Paragraph)doc.GetChild(NodeType.Paragraph, 0, true);
+            Paragraph para = (Paragraph) doc.GetChild(NodeType.Paragraph, 0, true);
 
             Run run = new Run(doc, "Double strike through text");
             run.Font.DoubleStrikeThrough = true;
@@ -175,7 +184,7 @@ namespace ApiExamples
             Document doc = new Document();
 
             // Get the paragraph from the document, we will be adding runs of text to it.
-            Paragraph para = (Paragraph)doc.GetChild(NodeType.Paragraph, 0, true);
+            Paragraph para = (Paragraph) doc.GetChild(NodeType.Paragraph, 0, true);
 
             // Add a run of text that is raised 5 points above the baseline.
             Run run = new Run(doc, "Raised text");
@@ -209,7 +218,7 @@ namespace ApiExamples
             Document doc = new Document();
 
             // Get the paragraph from the document, we will be adding runs of text to it.
-            Paragraph para = (Paragraph)doc.GetChild(NodeType.Paragraph, 0, true);
+            Paragraph para = (Paragraph) doc.GetChild(NodeType.Paragraph, 0, true);
 
             // Add a run of text with characters 150% width of normal characters.
             Run run = new Run(doc, "Wide characters");
@@ -220,7 +229,7 @@ namespace ApiExamples
             run = new Run(doc, "Expanded by 1pt");
             run.Font.Spacing = 1;
             para.AppendChild(run);
-            
+
             // Add a run of text with with space between characters reduced by 1pt.
             run = new Run(doc, "Condensed by 1pt");
             run.Font.Spacing = -1;
@@ -277,7 +286,7 @@ namespace ApiExamples
             run.Font.Outline = true;
             //ExEnd
         }
-        
+
         [Test]
         public void Hidden()
         {
@@ -352,7 +361,7 @@ namespace ApiExamples
             //ExFor:Font.Shading
             //ExSummary:Shows how to apply shading for a run of text.
             DocumentBuilder builder = new DocumentBuilder();
-            
+
             Shading shd = builder.Font.Shading;
             shd.Texture = TextureIndex.TextureDiagonalCross;
             shd.BackgroundPatternColor = Color.Blue;
@@ -376,7 +385,7 @@ namespace ApiExamples
             //ExFor:Font.LocaleIdBi
             //ExSummary:Shows how to insert and format right-to-left text.
             DocumentBuilder builder = new DocumentBuilder();
-            
+
             // Signal to Microsoft Word that this run of text contains right-to-left text.
             builder.Font.Bidi = true;
 
@@ -549,7 +558,6 @@ namespace ApiExamples
 
             // Verify the font count is correct.
             Assert.AreEqual(2, fontNames.Count);
-
         }
 
         [Test]
@@ -585,7 +593,9 @@ namespace ApiExamples
 
             Assert.Greater(callback.mFontWarnings.Count, 0);
             Assert.True(callback.mFontWarnings[0].WarningType == WarningType.FontSubstitution);
-            Assert.True(callback.mFontWarnings[0].Description.Equals("Font 'Times New Roman' has not been found. Using 'Fanwood' font instead. Reason: first available font."));
+            Assert.True(
+                callback.mFontWarnings[0].Description.Equals(
+                    "Font 'Times New Roman' has not been found. Using 'Fanwood' font instead. Reason: first available font."));
 
             // Restore default fonts. 
             FontSettings.DefaultInstance.SetFontsSources(origFontSources);
@@ -602,15 +612,17 @@ namespace ApiExamples
 
             FontSettings fontSettings = new FontSettings();
             fontSettings.DefaultFontName = "Arial";
-            fontSettings.SetFontSubstitutes("Arial", new string[] { "Arvo", "Slab" });
+            fontSettings.SetFontSubstitutes("Arial", new string[] {"Arvo", "Slab"});
             fontSettings.SetFontsFolder(MyDir + @"MyFonts\", false);
 
             doc.FontSettings = fontSettings;
 
             doc.Save(MyDir + @"\Artifacts\Rendering.MissingFontNotification.pdf");
-            
+
             Assert.True(callback.mFontWarnings[0].Description.Equals("Font substitutes: 'Arial' replaced with 'Arvo'."));
-            Assert.True(callback.mFontWarnings[1].Description.Equals("Font 'Times New Roman' has not been found. Using 'Arvo' font instead. Reason: default font setting."));
+            Assert.True(
+                callback.mFontWarnings[1].Description.Equals(
+                    "Font 'Times New Roman' has not been found. Using 'Arvo' font instead. Reason: default font setting."));
         }
 
         [Test]
@@ -624,7 +636,9 @@ namespace ApiExamples
 
             doc.Save(MyDir + @"\Artifacts\Font.DisapearingBulletPoints.pdf");
 
-            Assert.True(callback.mFontWarnings[0].Description.Equals("Font 'SymbolPS' has not been found. Using 'Wingdings' font instead. Reason: closest match according to font info from the document."));
+            Assert.True(
+                callback.mFontWarnings[0].Description.Equals(
+                    "Font 'SymbolPS' has not been found. Using 'Wingdings' font instead. Reason: closest match according to font info from the document."));
         }
 
         /// <summary>
@@ -648,7 +662,7 @@ namespace ApiExamples
             run.Font.Color = Color.Empty;
 
             // When we set black color for background, autocolor for font must be white
-            run.Font.Shading.BackgroundPatternColor = Color.Black; 
+            run.Font.Shading.BackgroundPatternColor = Color.Black;
             Assert.AreEqual(Color.White, run.Font.AutoColor);
 
             // When we set white color for background, autocolor for font must be black
@@ -691,11 +705,11 @@ namespace ApiExamples
             doc.Accept(hiddenContentRemover);
 
             // Or we can run it on only a specific node.
-            Paragraph para = (Paragraph)doc.GetChild(NodeType.Paragraph, 4, true);
+            Paragraph para = (Paragraph) doc.GetChild(NodeType.Paragraph, 4, true);
             para.Accept(hiddenContentRemover);
 
             // Or over a different type of node like below.
-            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 0, true);
             table.Accept(hiddenContentRemover);
 
             doc.Save(MyDir + @"\Artifacts\Font.Hidden.doc");
@@ -727,7 +741,7 @@ namespace ApiExamples
             public override VisitorAction VisitFieldEnd(FieldEnd fieldEnd)
             {
                 if (this.isHidden(fieldEnd))
-                    fieldEnd.Remove();            
+                    fieldEnd.Remove();
 
                 return VisitorAction.Continue;
             }
@@ -749,7 +763,7 @@ namespace ApiExamples
             public override VisitorAction VisitRun(Run run)
             {
                 if (this.isHidden(run))
-                    run.Remove();            
+                    run.Remove();
 
                 return VisitorAction.Continue;
             }
@@ -880,25 +894,25 @@ namespace ApiExamples
                 if (node is Inline)
                 {
                     // If the node is Inline then cast it to retrieve the Font property which contains the hidden property
-                    Inline currentNode = (Inline)node;
+                    Inline currentNode = (Inline) node;
                     return currentNode.Font.Hidden;
                 }
                 else if (node.NodeType == NodeType.Paragraph)
                 {
                     // If the node is a paragraph cast it to retrieve the ParagraphBreakFont which contains the hidden property
-                    Paragraph para = (Paragraph)node;
+                    Paragraph para = (Paragraph) node;
                     return para.ParagraphBreakFont.Hidden;
                 }
                 else if (node is ShapeBase)
                 {
                     // Node is a shape or groupshape.
-                    ShapeBase shape = (ShapeBase)node;
+                    ShapeBase shape = (ShapeBase) node;
                     return shape.Font.Hidden;
                 }
                 else if (node is InlineStory)
                 {
                     // Node is a comment or footnote.
-                    InlineStory inlineStory = (InlineStory)node;
+                    InlineStory inlineStory = (InlineStory) node;
                     return inlineStory.Font.Hidden;
                 }
 
@@ -906,8 +920,8 @@ namespace ApiExamples
                 // By default nodes are not hidden so return false.
                 return false;
             }
-
         }
+
         //ExEnd
     }
 }

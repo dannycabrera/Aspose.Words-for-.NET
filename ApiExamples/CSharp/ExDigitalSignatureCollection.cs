@@ -20,13 +20,14 @@ namespace ApiExamples
             //ExStart
             //ExFor:DigitalSignatureCollection.GetEnumerator
             //ExSummary:Shows how to load and enumerate all digital signatures of a document.
-            DigitalSignatureCollection digitalSignatures = DigitalSignatureUtil.LoadSignatures(MyDir + "Document.DigitalSignature.docx");
-            
+            DigitalSignatureCollection digitalSignatures =
+                DigitalSignatureUtil.LoadSignatures(MyDir + "Document.DigitalSignature.docx");
+
             var enumerator = digitalSignatures.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 // Do something useful
-                DigitalSignature ds = (DigitalSignature)enumerator.Current;
+                DigitalSignature ds = (DigitalSignature) enumerator.Current;
                 Console.WriteLine(ds.ToString());
             }
             //ExEnd

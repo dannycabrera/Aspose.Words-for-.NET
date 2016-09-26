@@ -17,10 +17,10 @@ namespace ApiExamples
         private static Symbology ConvertBarcodeType(string inputCode)
         {
             if (inputCode == null)
-                return (Symbology)int.MinValue;
+                return (Symbology) int.MinValue;
 
             string type = inputCode.ToUpper();
-            Symbology outputCode = (Symbology)int.MinValue;
+            Symbology outputCode = (Symbology) int.MinValue;
 
             switch (type)
             {
@@ -68,7 +68,7 @@ namespace ApiExamples
                 throw new Exception("Error! Incorrect height - " + heightInTwipsString + ".");
 
             // Convert to mm
-            return (float)(heightInTwips * 25.4 / 1440);
+            return (float) (heightInTwips*25.4/1440);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace ApiExamples
             if (!isParsed)
                 throw new Exception("Error! Incorrect scaling factor - " + scalingFactor + ".");
 
-            return percents / 100.0f;
+            return percents/100.0f;
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace ApiExamples
             BarCodeBuilder builder = new BarCodeBuilder();
 
             builder.SymbologyType = ConvertBarcodeType(parameters.BarcodeType);
-            if (builder.SymbologyType == (Symbology)int.MinValue)
+            if (builder.SymbologyType == (Symbology) int.MinValue)
                 return null;
 
             builder.CodeText = parameters.BarcodeValue;
@@ -156,7 +156,7 @@ namespace ApiExamples
                 builder.AutoSize = false;
                 builder.ImageWidth *= scale;
                 builder.ImageHeight = builder.ImageWidth;
-                xdim = builder.ImageHeight / 25;
+                xdim = builder.ImageHeight/25;
                 builder.yDimension = xdim;
                 builder.xDimension = xdim;
             }
@@ -168,7 +168,7 @@ namespace ApiExamples
                 if (builder.SymbologyType == Symbology.QR)
                 {
                     builder.ImageWidth = builder.ImageHeight;
-                    builder.yDimension = xdim * scalingFactor;
+                    builder.yDimension = xdim*scalingFactor;
                     builder.xDimension = builder.yDimension;
                 }
 
@@ -206,7 +206,9 @@ namespace ApiExamples
         public static int TryParseInt(string s)
         {
             double temp;
-            return (Double.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out temp)) ? CastDoubleToInt(temp) : int.MinValue;
+            return (Double.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out temp))
+                ? CastDoubleToInt(temp)
+                : int.MinValue;
         }
 
         /// <summary>
@@ -214,8 +216,8 @@ namespace ApiExamples
         /// </summary>
         public static int CastDoubleToInt(double value)
         {
-            long temp = (long)value;
-            return (int)temp;
+            long temp = (long) value;
+            return (int) temp;
         }
 
         /// <summary>
@@ -225,7 +227,9 @@ namespace ApiExamples
         public static int TryParseHex(string s)
         {
             int result;
-            return int.TryParse(s, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out result) ? result : int.MinValue;
+            return int.TryParse(s, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out result)
+                ? result
+                : int.MinValue;
         }
     }
 }

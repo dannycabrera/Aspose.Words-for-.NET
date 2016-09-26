@@ -8,10 +8,8 @@
 using System;
 using System.Drawing;
 using System.Text.RegularExpressions;
-
 using Aspose.Words;
 using Aspose.Words.Replacing;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -39,9 +37,10 @@ namespace ApiExamples
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = false;
             options.FindWholeWordsOnly = false;
-            
+
             // Replace the text in the document.
-            doc.Range.Replace("_CustomerName_", "James Bond", options); //instead of obsolete method doc.Range.Replace("_CustomerName_", "James Bond", false, false);
+            doc.Range.Replace("_CustomerName_", "James Bond", options);
+                //instead of obsolete method doc.Range.Replace("_CustomerName_", "James Bond", false, false);
 
             // Save the modified document.
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceSimple.doc");
@@ -64,7 +63,7 @@ namespace ApiExamples
             options.FindWholeWordsOnly = true;
 
             doc.Range.Replace("sad", "bad", options);
-            
+
             doc.Save(MyDir + @"\Artifacts\ReplaceWithString.doc");
         }
 
@@ -109,12 +108,13 @@ namespace ApiExamples
             FindReplaceOptions options = new FindReplaceOptions();
             options.ReplacingCallback = new ReplaceWithHtmlEvaluator(options);
 
-            doc.Range.Replace(new Regex(@" <CustomerName>,"), String.Empty, options); //instead of obsolete method doc.Range.Replace(new Regex(@"<CustomerName>"), new ReplaceWithHtmlEvaluator(), false)
+            doc.Range.Replace(new Regex(@" <CustomerName>,"), String.Empty, options);
+                //instead of obsolete method doc.Range.Replace(new Regex(@"<CustomerName>"), new ReplaceWithHtmlEvaluator(), false)
 
             // Save the modified document.
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithInsertHtml.doc");
 
-            Assert.AreEqual("James Bond, Hello\r\x000c", doc.GetText());  //ExSkip
+            Assert.AreEqual("James Bond, Hello\r\x000c", doc.GetText()); //ExSkip
         }
 
         private class ReplaceWithHtmlEvaluator : IReplacingCallback
@@ -130,7 +130,7 @@ namespace ApiExamples
             /// </summary>
             ReplaceAction IReplacingCallback.Replacing(ReplacingArgs e)
             {
-                DocumentBuilder builder = new DocumentBuilder((Document)e.MatchNode.Document);
+                DocumentBuilder builder = new DocumentBuilder((Document) e.MatchNode.Document);
                 builder.MoveTo(e.MatchNode);
 
                 // Replace '<CustomerName>' text with a red bold name.
@@ -142,6 +142,7 @@ namespace ApiExamples
 
             private readonly FindReplaceOptions mOptions;
         }
+
         //ExEnd
 
         [Test]
@@ -151,10 +152,11 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             builder.Font.Name = "Arial";
-            builder.Write("There are few numbers that should be converted to HEX and highlighted: 123, 456, 789 and 17379.");
+            builder.Write(
+                "There are few numbers that should be converted to HEX and highlighted: 123, 456, 789 and 17379.");
 
             FindReplaceOptions options = new FindReplaceOptions();
-            
+
             // Highlight newly inserted content.
             options.ApplyFont.HighlightColor = Color.DarkOrange;
             options.ReplacingCallback = new NumberHexer();
@@ -169,7 +171,7 @@ namespace ApiExamples
             {
                 // Parse numbers.
                 int number = Convert.ToInt32(args.Match.Value);
-                
+
                 // And write it as HEX.
                 args.Replacement = string.Format("0x{0:X}", number);
 
@@ -201,7 +203,7 @@ namespace ApiExamples
 
             Assert.AreEqual("Hello2\x000c", doc.GetText());
         }
-        
+
         [Test]
         public void RangesGetText()
         {

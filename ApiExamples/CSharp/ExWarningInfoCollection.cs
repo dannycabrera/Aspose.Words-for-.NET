@@ -6,9 +6,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System;
-
 using Aspose.Words;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -28,7 +26,7 @@ namespace ApiExamples
             var enumerator = wic.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                WarningInfo wi = (WarningInfo)enumerator.Current;
+                WarningInfo wi = (WarningInfo) enumerator.Current;
                 Console.WriteLine(wi.Description);
             }
 

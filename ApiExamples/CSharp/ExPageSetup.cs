@@ -7,9 +7,7 @@
 
 using System.Drawing;
 using System.Drawing.Printing;
-
 using Aspose.Words;
-
 using NUnit.Framework;
 
 namespace ApiExamples

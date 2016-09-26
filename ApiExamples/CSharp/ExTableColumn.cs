@@ -8,10 +8,8 @@
 using System;
 using System.Collections;
 using System.Text;
-
 using Aspose.Words;
 using Aspose.Words.Tables;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -49,10 +47,7 @@ namespace ApiExamples
             /// </summary>
             public Cell[] Cells
             {
-                get
-                {
-                    return (Cell[])this.GetColumnCells().ToArray(typeof(Cell));
-                }
+                get { return (Cell[]) this.GetColumnCells().ToArray(typeof(Cell)); }
             }
 
             /// <summary>
@@ -132,6 +127,7 @@ namespace ApiExamples
             private int mColumnIndex;
             private Table mTable;
         }
+
         //ExEnd
 
         [Test]
@@ -141,7 +137,7 @@ namespace ApiExamples
             //ExId:RemoveTableColumn
             //ExSummary:Shows how to remove a column from a table in a document.
             Document doc = new Document(MyDir + "Table.Document.doc");
-            Table table = (Table)doc.GetChild(NodeType.Table, 1, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 1, true);
 
             // Get the third column from the table and remove it.
             Column column = Column.FromIndex(table, 2);
@@ -159,7 +155,7 @@ namespace ApiExamples
         public void InsertNewColumnIntoTable()
         {
             Document doc = new Document(MyDir + "Table.Document.doc");
-            Table table = (Table)doc.GetChild(NodeType.Table, 1, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 1, true);
 
             //ExStart
             //ExId:InsertNewColumn
@@ -187,7 +183,7 @@ namespace ApiExamples
         public void TableColumnToTxt()
         {
             Document doc = new Document(MyDir + "Table.Document.doc");
-            Table table = (Table)doc.GetChild(NodeType.Table, 1, true);
+            Table table = (Table) doc.GetChild(NodeType.Table, 1, true);
 
             //ExStart
             //ExId:TableColumnToTxt

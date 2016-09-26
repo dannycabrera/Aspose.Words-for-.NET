@@ -12,12 +12,10 @@ using System.Drawing.Printing;
 using System.Drawing.Text;
 using System.IO;
 using System.Windows.Forms;
-
 using Aspose.Words;
 using Aspose.Words.Fonts;
 using Aspose.Words.Rendering;
 using Aspose.Words.Saving;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -253,7 +251,7 @@ namespace ApiExamples
             for (int i = 0; i < doc.PageCount; i++)
             {
                 options.PageIndex = i;
-                doc.Save(MyDir + @"\Artifacts\Rendering.SaveToEmf." + i.ToString()+ ".emf", options);
+                doc.Save(MyDir + @"\Artifacts\Rendering.SaveToEmf." + i.ToString() + ".emf", options);
             }
             //ExEnd
         }
@@ -313,7 +311,7 @@ namespace ApiExamples
             stream.Position = 0;
 
             // Read the stream back into an image.
-            Image image = Image.FromStream(stream); 
+            Image image = Image.FromStream(stream);
             //ExEnd
         }
 
@@ -524,7 +522,7 @@ namespace ApiExamples
                     gr.RotateTransform(10);
 
                     // This is our test rectangle.
-                    gr.DrawRectangle(new Pen(Color.Black, 3f / 72f), 0f, 0f, 3f, 3f);
+                    gr.DrawRectangle(new Pen(Color.Black, 3f/72f), 0f, 0f, 3f, 3f);
 
                     // User specifies (in world coordinates) where on the Graphics to render and what size.
                     float returnedScale = doc.RenderToSize(0, gr, 0f, 0f, 3f, 3f);
@@ -586,8 +584,8 @@ namespace ApiExamples
             Size thumbSize = doc.GetPageInfo(0).GetSizeInPixels(scale, 96);
 
             // Calculate the size of the image that will contain all the thumbnails.
-            int imgWidth = thumbSize.Width * thumbColumns;
-            int imgHeight = thumbSize.Height * thumbRows;
+            int imgWidth = thumbSize.Width*thumbColumns;
+            int imgHeight = thumbSize.Height*thumbRows;
 
             using (Bitmap img = new Bitmap(imgWidth, imgHeight))
             {
@@ -606,8 +604,8 @@ namespace ApiExamples
                         int rowIdx = Math.DivRem(pageIndex, thumbColumns, out columnIdx);
 
                         // Specify where we want the thumbnail to appear.
-                        float thumbLeft = columnIdx * thumbSize.Width;
-                        float thumbTop = rowIdx * thumbSize.Height;
+                        float thumbLeft = columnIdx*thumbSize.Width;
+                        float thumbTop = rowIdx*thumbSize.Height;
 
                         SizeF size = doc.RenderToScale(pageIndex, gr, thumbLeft, thumbTop, scale);
 
@@ -636,7 +634,7 @@ namespace ApiExamples
             printDoc.PrinterSettings.PrintRange = System.Drawing.Printing.PrintRange.SomePages;
             printDoc.PrinterSettings.FromPage = 1;
             printDoc.PrinterSettings.ToPage = 1;
-            
+
             // Print our document.
             printDoc.Print();
         }
@@ -725,6 +723,7 @@ namespace ApiExamples
             private int mCurrentPage;
             private int mPageTo;
         }
+
         //ExEnd
 
         [Test, Explicit]
@@ -739,14 +738,14 @@ namespace ApiExamples
             //ExFor:PageInfo.HeightInPoints
             //ExSummary:Retrieves page size and orientation information for every page in a Word document.
             Document doc = new Document(MyDir + "Rendering.doc");
-            
+
             Console.WriteLine("Document \"{0}\" contains {1} pages.", doc.OriginalFileName, doc.PageCount);
 
             for (int i = 0; i < doc.PageCount; i++)
             {
                 PageInfo pageInfo = doc.GetPageInfo(i);
                 Console.WriteLine(
-                    "Page {0}. PaperSize:{1} ({2:F0}x{3:F0}pt), Orientation:{4}, PaperTray:{5}", 
+                    "Page {0}. PaperSize:{1} ({2:F0}x{3:F0}pt), Orientation:{4}, PaperTray:{5}",
                     i + 1,
                     pageInfo.PaperSize,
                     pageInfo.WidthInPoints,
@@ -832,7 +831,7 @@ namespace ApiExamples
             fontSources.Add(folderFontSource);
 
             // Convert the Arraylist of source back into a primitive array of FontSource objects.
-            FontSourceBase[] updatedFontSources = (FontSourceBase[])fontSources.ToArray(typeof(FontSourceBase));
+            FontSourceBase[] updatedFontSources = (FontSourceBase[]) fontSources.ToArray(typeof(FontSourceBase));
 
             // Apply the new set of font sources to use.
             FontSettings.DefaultInstance.SetFontsSources(updatedFontSources);
@@ -841,10 +840,12 @@ namespace ApiExamples
             //ExEnd
 
             // Verify that font sources are set correctly.
-            Assert.IsInstanceOf(typeof(SystemFontSource), FontSettings.DefaultInstance.GetFontsSources()[0]); // The first source should be a system font source.
-            Assert.IsInstanceOf(typeof(FolderFontSource), FontSettings.DefaultInstance.GetFontsSources()[1]); // The second source should be our folder font source.
+            Assert.IsInstanceOf(typeof(SystemFontSource), FontSettings.DefaultInstance.GetFontsSources()[0]);
+                // The first source should be a system font source.
+            Assert.IsInstanceOf(typeof(FolderFontSource), FontSettings.DefaultInstance.GetFontsSources()[1]);
+                // The second source should be our folder font source.
 
-            FolderFontSource folderSource = ((FolderFontSource)FontSettings.DefaultInstance.GetFontsSources()[1]);
+            FolderFontSource folderSource = ((FolderFontSource) FontSettings.DefaultInstance.GetFontsSources()[1]);
             Assert.AreEqual(@"C:\MyFonts\", folderSource.FolderPath);
             Assert.True(folderSource.ScanSubfolders);
 
@@ -857,13 +858,13 @@ namespace ApiExamples
         {
             FontSettings fontSettings = new FontSettings();
             fontSettings.SetFontsFolder(MyDir + @"MyFonts\", false);
-            
+
             // Using load options
             LoadOptions loadOptions = new LoadOptions();
             loadOptions.FontSettings = fontSettings;
             Document doc = new Document(MyDir + "Rendering.doc", loadOptions);
 
-            FolderFontSource folderSource = ((FolderFontSource)doc.FontSettings.GetFontsSources()[0]);
+            FolderFontSource folderSource = ((FolderFontSource) doc.FontSettings.GetFontsSources()[0]);
             Assert.AreEqual(MyDir + @"MyFonts\", folderSource.FolderPath);
             Assert.False(folderSource.ScanSubfolders);
         }
@@ -872,8 +873,8 @@ namespace ApiExamples
         public void SetFontSubstitutes()
         {
             FontSettings fontSettings = new FontSettings();
-            fontSettings.SetFontSubstitutes("Times New Roman", new string[] { "Slab", "Arvo" });
-            
+            fontSettings.SetFontSubstitutes("Times New Roman", new string[] {"Slab", "Arvo"});
+
             Document doc = new Document(MyDir + "Rendering.doc");
             doc.FontSettings = fontSettings;
 
@@ -887,25 +888,25 @@ namespace ApiExamples
             Assert.AreEqual("Times New Roman", doc.FontSettings.DefaultFontName);
 
             string[] alternativeFonts = doc.FontSettings.GetFontSubstitutes("Times New Roman");
-            Assert.AreEqual(new string[] { "Slab", "Arvo" }, alternativeFonts);
+            Assert.AreEqual(new string[] {"Slab", "Arvo"}, alternativeFonts);
         }
 
         [Test]
         public void SetSpecifyFontFolders()
         {
             FontSettings fontSettings = new FontSettings();
-            fontSettings.SetFontsFolders(new string[] { MyDir + @"MyFonts\", @"C:\Windows\Fonts\" }, true);
+            fontSettings.SetFontsFolders(new string[] {MyDir + @"MyFonts\", @"C:\Windows\Fonts\"}, true);
 
             // Using load options
             LoadOptions loadOptions = new LoadOptions();
             loadOptions.FontSettings = fontSettings;
             Document doc = new Document(MyDir + "Rendering.doc", loadOptions);
 
-            FolderFontSource folderSource = ((FolderFontSource)doc.FontSettings.GetFontsSources()[0]);
+            FolderFontSource folderSource = ((FolderFontSource) doc.FontSettings.GetFontsSources()[0]);
             Assert.AreEqual(MyDir + @"MyFonts\", folderSource.FolderPath);
             Assert.True(folderSource.ScanSubfolders);
 
-            folderSource = ((FolderFontSource)doc.FontSettings.GetFontsSources()[1]);
+            folderSource = ((FolderFontSource) doc.FontSettings.GetFontsSources()[1]);
             Assert.AreEqual(@"C:\Windows\Fonts\", folderSource.FolderPath);
             Assert.True(folderSource.ScanSubfolders);
         }
@@ -914,20 +915,20 @@ namespace ApiExamples
         public void AddFontSubstitutes()
         {
             FontSettings fontSettings = new FontSettings();
-            fontSettings.SetFontSubstitutes("Slab", new string[] { "Times New Roman", "Arial" });
-            fontSettings.AddFontSubstitutes("Arvo", new string[] { "Open Sans", "Arial" });
-            
+            fontSettings.SetFontSubstitutes("Slab", new string[] {"Times New Roman", "Arial"});
+            fontSettings.AddFontSubstitutes("Arvo", new string[] {"Open Sans", "Arial"});
+
             Document doc = new Document(MyDir + "Rendering.doc");
             doc.FontSettings = fontSettings;
-            
+
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
             string[] alternativeFonts = doc.FontSettings.GetFontSubstitutes("Slab");
-            Assert.AreEqual(new string[] { "Times New Roman", "Arial" }, alternativeFonts);
+            Assert.AreEqual(new string[] {"Times New Roman", "Arial"}, alternativeFonts);
 
             alternativeFonts = doc.FontSettings.GetFontSubstitutes("Arvo");
-            Assert.AreEqual(new string[] { "Open Sans", "Arial" }, alternativeFonts);
+            Assert.AreEqual(new string[] {"Open Sans", "Arial"}, alternativeFonts);
         }
 
         [Test]
@@ -977,7 +978,7 @@ namespace ApiExamples
             // Pass the save options along with the save path to the save method.
             doc.Save(MyDir + @"\Artifacts\Rendering.MissingFontNotification.pdf");
             //ExEnd
-            
+
             Assert.Greater(callback.mFontWarnings.Count, 0);
             Assert.True(callback.mFontWarnings[0].WarningType == WarningType.FontSubstitution);
             Assert.True(callback.mFontWarnings[0].Description.Contains("has not been found"));
@@ -1010,6 +1011,7 @@ namespace ApiExamples
 
             public WarningInfoCollection mFontWarnings = new WarningInfoCollection(); //ExSkip
         }
+
         //ExEnd
 
         [Test]
@@ -1143,11 +1145,12 @@ namespace ApiExamples
             //ExFor:PdfEncryptionDetails
             //ExSummary:Demonstrates how to set permissions on a PDF document generated by Aspose.Words.
             Document doc = new Document(MyDir + "Rendering.doc");
-            
+
             PdfSaveOptions saveOptions = new PdfSaveOptions();
-            
+
             // Create encryption details and set owner password.
-            PdfEncryptionDetails encryptionDetails = new PdfEncryptionDetails(string.Empty, "password", PdfEncryptionAlgorithm.RC4_128);
+            PdfEncryptionDetails encryptionDetails = new PdfEncryptionDetails(string.Empty, "password",
+                PdfEncryptionAlgorithm.RC4_128);
 
             // Start by disallowing all permissions.
             encryptionDetails.Permissions = PdfPermissions.DisallowAll;

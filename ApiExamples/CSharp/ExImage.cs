@@ -8,10 +8,8 @@
 using System.Collections;
 using System.Drawing;
 using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -241,7 +239,7 @@ namespace ApiExamples
 
 
             builder.Write("Image linked and stored in the document: ");
-            
+
             Shape linkedAndStored = new Shape(builder.Document, ShapeType.Image);
             linkedAndStored.WrapType = WrapType.Inline;
             linkedAndStored.ImageData.SourceFullName = imageFileName;
@@ -252,7 +250,7 @@ namespace ApiExamples
 
 
             builder.Write("Image stored in the document, but not linked: ");
-            
+
             Shape stored = new Shape(builder.Document, ShapeType.Image);
             stored.WrapType = WrapType.Inline;
             stored.ImageData.SetImage(imageFileName);
@@ -269,7 +267,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "Image.SampleImages.doc");
             Assert.AreEqual(6, doc.GetChildNodes(NodeType.Shape, true).Count);
-            
+
             //ExStart
             //ExFor:Shape.HasImage
             //ExFor:Node.Remove
@@ -302,7 +300,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "Image.SampleImages.doc");
             Assert.AreEqual(6, doc.GetChildNodes(NodeType.Shape, true).Count);
-            
+
             //ExStart
             //ExFor:Node.NextPreOrder
             //ExSummary:Shows how to delete all images from a document using pre-order tree traversal.
@@ -313,7 +311,7 @@ namespace ApiExamples
 
                 if (curNode.NodeType.Equals(NodeType.Shape))
                 {
-                    Shape shape = (Shape)curNode;
+                    Shape shape = (Shape) curNode;
 
                     // Several shape types can have an image including image shapes and OLE objects.
                     if (shape.HasImage)
@@ -345,18 +343,20 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Image.SampleImages.doc");
 
             NodeCollection shapes = doc.GetChildNodes(NodeType.Shape, true);
-            int imageIndex = 0;			
+            int imageIndex = 0;
             foreach (Shape shape in shapes)
             {
                 if (shape.HasImage)
                 {
                     string imageFileName = string.Format(
-                        @"\Artifacts\Image.ExportImages.{0} Out{1}", imageIndex, FileFormatUtil.ImageTypeToExtension(shape.ImageData.ImageType));
+                        @"\Artifacts\Image.ExportImages.{0} Out{1}", imageIndex,
+                        FileFormatUtil.ImageTypeToExtension(shape.ImageData.ImageType));
                     shape.ImageData.Save(MyDir + imageFileName);
                     imageIndex++;
                 }
             }
         }
+
         //ExEnd
 
         [Test]
@@ -376,13 +376,13 @@ namespace ApiExamples
             Shape shape = builder.InsertImage(MyDir + @"\Images\Aspose.Words.gif");
 
             // It is easy to change the shape size. In this case, make it 50% relative to the current shape size.
-            shape.Width = shape.Width * 0.5;
-            shape.Height = shape.Height * 0.5;
+            shape.Width = shape.Width*0.5;
+            shape.Height = shape.Height*0.5;
 
             // However, we can also go back to the original image size and scale from there, say 110%.
             ImageSize imageSize = shape.ImageData.ImageSize;
-            shape.Width = imageSize.WidthPoints * 1.1;
-            shape.Height = imageSize.HeightPoints * 1.1;
+            shape.Width = imageSize.WidthPoints*1.1;
+            shape.Height = imageSize.HeightPoints*1.1;
 
             builder.Document.Save(MyDir + @"\Artifacts\Image.ScaleImage.doc");
             //ExEnd
